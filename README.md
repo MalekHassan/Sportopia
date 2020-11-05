@@ -24,3 +24,8 @@ SAAM TEAM:
 - category table has a relation with the product table, one-to-many, each category have many products, and the product has one category.
 
 - products and bayer's have many to many relation in table user_product, each product has multiple bayer's and each bayer can buy multiple products
+
+
+## Domain Modeling:
+
+![DomainModeling](assets/DomainModeling.jpg)
