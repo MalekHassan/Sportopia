@@ -8,8 +8,8 @@ const app = express();
 
 // Rotes Require
 const signing = require('./routes/signing');
-const sellerProd = require('./routes/products');
-
+const sellerProd = require('./routes/sellerproducts');
+const buyerProd = require('./routes/buyerpeoducts');
 // Middleware
 app.use(express.static('./public'));
 app.use(express.json());
@@ -19,7 +19,7 @@ app.use(cors());
 // Routes
 app.use('/', signing);
 app.use('/seller', sellerProd);
-
+app.use('/buyer', buyerProd);
 // Exporting the server
 module.exports = {
   server: app,
