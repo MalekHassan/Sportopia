@@ -57,6 +57,17 @@ IF NOT EXISTS category
 (255)
 );
 
+INSERT INTO category (category_name) VALUES ('Sports Clothing');
+INSERT INTO category (category_name) VALUES ('Camping & Hiking');
+INSERT INTO category (category_name) VALUES ('Fitness & Body Building');
+INSERT INTO category (category_name) VALUES ('Sports Accessories');
+INSERT INTO category (category_name) VALUES ('Entertainment');
+INSERT INTO category (category_name) VALUES ('Roller Skates, Skateboards & Scooters');
+INSERT INTO category (category_name) VALUES ('Sneakers, shoes');
+INSERT INTO category (category_name) VALUES ('Horse Racing');
+INSERT INTO category (category_name) VALUES ('Water Sports');
+
+
 CREATE TABLE
 IF NOT EXISTS products
 (
@@ -70,6 +81,7 @@ IF NOT EXISTS products
     category_id integer REFERENCES category
 (id)
 );
+
 
 CREATE TABLE
 If NOT EXISTS user_product

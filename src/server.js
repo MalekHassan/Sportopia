@@ -8,6 +8,7 @@ const app = express();
 
 // Rotes Require
 const signing = require('./routes/signing');
+const sellerProd = require('./routes/products');
 
 // Middleware
 app.use(express.static('./public'));
@@ -17,6 +18,7 @@ app.use(cors());
 
 // Routes
 app.use('/', signing);
+app.use('/seller', sellerProd);
 
 // Exporting the server
 module.exports = {
