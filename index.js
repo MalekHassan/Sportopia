@@ -1,10 +1,6 @@
-const express = require('express');
-const pg = require('pg');
+'use strict';
 require('dotenv').config();
-const app = express();
+const server = require('./src/server');
 const PORT = process.env.PORT;
-
-const client = new pg.Client(process.env.DATABASE_URL);
-
-app.get('/', (req, res) => res.send('Hello World!'));
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));
+const client = require('./src/models/pool');
+server.start(PORT);

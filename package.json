@@ -4,7 +4,7 @@
   "description": "A marketplace where sellers get all the tools that help them achieve high sales, while buyers have a user-friendly experience that easies communication and search.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --verbose",
+    "test": "jest --coverage --verbose --detectOpenHandles",
     "start": "node index.js",
     "lint": "eslint *.js",
     "prettier": "prettier  all --write . package.json",
@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/SAAM-team/Sportana#readme",
   "dependencies": {
+    "@types/jest": "^26.0.15",
     "base-64": "^1.0.0",
     "bcrypt": "^5.0.0",
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -45,5 +47,8 @@
     "hooks": {
       "pre-commit": "npm run prettify"
     }
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
