@@ -51,5 +51,11 @@ class Products {
     //   });
     return productInfo.rows[0];
   }
+  async delete(deleteId) {
+    let deleteQuery = `delete from products where id=$1 RETURNING *;`;
+    let safeValues = [deleteId];
+    let productDeleting = await client.query(deleteQuery, safeValues);
+    return productDeleting.rows[0];
+  }
 }
 module.exports = new Products();
