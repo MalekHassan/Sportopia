@@ -15,7 +15,6 @@ class UsersCollection {
     let userDb = await client
       .query(selectQuery, safeValues)
       .then((data) => data.rows[0]);
-    console.log(Boolean(userDb));
     if (!userDb) {
       const insertQuery =
         'INSERT INTO users (user_name,user_password,user_role) VALUES ($1,$2,$3)';

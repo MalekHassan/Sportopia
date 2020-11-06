@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
+require('dotenv').config();
 const userModel = require('../models/users/users-collection');
-const client = require('../models/pool');
 
 const router = express.Router();
 
@@ -16,7 +16,6 @@ async function createNewUser(req, res, next) {
     });
   } else {
     res.status(201);
-    console.log(userInfo);
     res.json({
       message: 'A new user has been added',
       user: userInfo,
