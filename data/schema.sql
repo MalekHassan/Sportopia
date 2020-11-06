@@ -1,5 +1,5 @@
 CREATE TYPE roles AS ENUM
-('admin', 'seller', 'bayer');
+('admin', 'seller', 'buyer');
 CREATE TYPE user_gender AS ENUM
 ('male', 'female');
 
@@ -17,7 +17,7 @@ IF NOT EXISTS users
 );
 
 CREATE TABLE
-IF NOT EXISTS bayer
+IF NOT EXISTS buyer
 (
      id SERIAL PRIMARY KEY,
     u_id integer REFERENCES users
@@ -57,6 +57,17 @@ IF NOT EXISTS category
 (255)
 );
 
+INSERT INTO category (category_name) VALUES ('Sports Clothing');
+INSERT INTO category (category_name) VALUES ('Camping & Hiking');
+INSERT INTO category (category_name) VALUES ('Fitness & Body Building');
+INSERT INTO category (category_name) VALUES ('Sports Accessories');
+INSERT INTO category (category_name) VALUES ('Entertainment');
+INSERT INTO category (category_name) VALUES ('Roller Skates, Skateboards & Scooters');
+INSERT INTO category (category_name) VALUES ('Sneakers, shoes');
+INSERT INTO category (category_name) VALUES ('Horse Racing');
+INSERT INTO category (category_name) VALUES ('Water Sports');
+
+
 CREATE TABLE
 IF NOT EXISTS products
 (
@@ -71,11 +82,12 @@ IF NOT EXISTS products
 (id)
 );
 
+
 CREATE TABLE
 If NOT EXISTS user_product
 (
     id SERIAL PRIMARY KEY,
-    u_id integer REFERENCES bayer
+    u_id integer REFERENCES buyer
 (id),
     p_id INTEGER REFERENCES products
 (id),
