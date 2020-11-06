@@ -1,5 +1,5 @@
 CREATE TYPE roles AS ENUM
-('admin', 'seller', 'bayer');
+('admin', 'seller', 'buyer');
 CREATE TYPE user_gender AS ENUM
 ('male', 'female');
 
@@ -17,7 +17,7 @@ IF NOT EXISTS users
 );
 
 CREATE TABLE
-IF NOT EXISTS bayer
+IF NOT EXISTS buyer
 (
      id SERIAL PRIMARY KEY,
     u_id integer REFERENCES users
@@ -87,7 +87,7 @@ CREATE TABLE
 If NOT EXISTS user_product
 (
     id SERIAL PRIMARY KEY,
-    u_id integer REFERENCES bayer
+    u_id integer REFERENCES buyer
 (id),
     p_id INTEGER REFERENCES products
 (id),
