@@ -15,8 +15,8 @@ module.exports = (req, res, next) => {
     // console.log(obj);
     userCollection
       .authenticateBasic(obj)
-      .then((validUser) => {
-        req.token = userCollection.generateToken(validUser);
+      .then(async (validUser) => {
+        req.token = await userCollection.generateToken(validUser);
         next();
       })
       .catch((err) => {

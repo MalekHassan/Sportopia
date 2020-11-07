@@ -54,42 +54,6 @@ IF NOT EXISTS category
 (255)
 );
 
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Sports Clothing');
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Camping & Hiking');
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Fitness & Body Building');
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Sports Accessories');
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Entertainment');
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Roller Skates, Skateboards & Scooters');
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Sneakers, shoes');
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Horse Racing');
-INSERT INTO category
-    (category_name)
-VALUES
-    ('Water Sports');
 
 CREATE TABLE
 IF NOT EXISTS products
@@ -108,6 +72,7 @@ IF NOT EXISTS products
     quaintitny INTEGER,
     is_deleted boolean
 );
+
 CREATE TABLE
 IF NOT EXISTS buyer_favorite
 (
@@ -116,6 +81,18 @@ IF NOT EXISTS buyer_favorite
 (id),
      p_id INTEGER REFERENCES products
 (id),
+    is_deleted boolean
+);
+
+CREATE TABLE
+IF NOT EXISTS buyer_cart
+(
+    id SERIAL PRIMARY KEY,
+    u_id INTEGER REFERENCES buyer
+(id),
+     p_id INTEGER REFERENCES products
+(id),
+
     is_deleted boolean
 );
 CREATE TABLE
@@ -129,6 +106,7 @@ IF NOT EXISTS buyer_cart
     quaintitny INTEGER,
     is_bought boolean
 );
+
 CREATE TABLE
 IF NOT EXISTS buyer_comments
 (
