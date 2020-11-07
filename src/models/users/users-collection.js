@@ -45,30 +45,31 @@ class UsersCollection {
       return Promise.reject('User Does not exist');
     }
     const valid = await bcrypt.compare(record.password, userDB.user_password);
-    let userObj = { username: userDB.user_name, role: userDB.user_role };
-    return valid ? userObj : Promise.reject();
+    return valid ? userDB : Promise.reject();
   }
 
   async generateToken(record) {
     const token = await jwt.sign(
-      { username: record.username, role: record.role },
+      {
+        username: record.user_name,
+        role: record.user_role,
+        is_activated: record.is_activated,
+      },
       SECRET
     );
     await client.query('Update users SET oauth_token=$1 Where user_name=$2', [
       token,
-      record.username,
+      record.user_name,
     ]);
     return token;
   }
 
   async authenticateToken(token) {
     try {
-      console.log('inside authtoken');
       const tokenObject = jwt.verify(token, SECRET);
-      console.log('TOKEN OBJECT', tokenObject);
       let userDB = await this.exists(tokenObject);
       if (userDB) {
-        return Promise.resolve(tokenObject);
+        return Promise.resolve(userDB);
       } else {
         return Promise.reject();
       }
@@ -80,7 +81,6 @@ class UsersCollection {
   async OAuth(record) {
     let userDB = await this.exists(record);
     if (!userDB) {
-      this.create(record);
       // console.log('Created new User');
     } else {
       // console.log('User exists');

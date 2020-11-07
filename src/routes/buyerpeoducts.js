@@ -3,15 +3,18 @@ const express = require('express');
 const buyerModel = require('../models/products/buyerProduct-collection');
 // const client = require('../models/pool');
 const bearer = require('../models/middleware/bearerAuth');
+const isActivated = require('../middleware/isActivated');
 const acl = require('../models/middleware/acl');
+
+let arrayMiddleware = [bearer, isActivated, acl('buyer')];
 
 const router = express.Router();
 
 // Routes
-router.post('/add/comment', bearer, acl('buyer'), buyerAddComment);
-router.put('/update/comment/:id', bearer, acl('buyer'), buyerUpdateComment);
-router.patch('/patch/comment/:id', bearer, acl('buyer'), buyerUpdateComment);
-router.delete('/delete/comment/:id', bearer, acl('buyer'), buyerDeleteComment);
+router.post('/add/comment', [...arrayMiddleware], buyerAddComment);
+router.put('/update/comment/:id', [...arrayMiddleware], buyerUpdateComment);
+router.patch('/patch/comment/:id', [...arrayMiddleware], buyerUpdateComment);
+router.delete('/delete/comment/:id', [...arrayMiddleware], buyerDeleteComment);
 
 // functions
 async function buyerAddComment(req, res) {
