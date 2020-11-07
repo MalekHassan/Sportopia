@@ -2,14 +2,16 @@
 const express = require('express');
 const adminCollection = require('../models/users/admin-collection');
 const router = express.Router();
+const bearer = require('../models/middleware/bearerAuth');
+const acl = require('../models/middleware/acl');
 
 // Note add cli here for admin
 // Routes
-router.get('/buyers', getBuyers);
-router.get('/buyers/:page', getBuyers);
-router.get('/sellers', getSellers);
-router.get('/sellers/:page', getSellers);
-router.post('/toggle/:id', activateUser);
+router.get('/buyers', bearer, acl('admin'), getBuyers);
+router.get('/buyers/:page', bearer, acl('admin'), getBuyers);
+router.get('/sellers', bearer, acl('admin'), getSellers);
+router.get('/sellers/:page', bearer, acl('admin'), getSellers);
+router.post('/toggle/:id', bearer, acl('admin'), activateUser);
 
 // Functions
 async function getBuyers(req, res, next) {
