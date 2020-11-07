@@ -14,7 +14,6 @@ const adminRoute = require('./routes/admin');
 const notExist = require('./models/middleware/404');
 const serverError = require('./models/middleware/500');
 
-
 // Middleware
 app.use(express.static('./public'));
 app.use(express.json());

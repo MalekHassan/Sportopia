@@ -48,7 +48,7 @@ class UsersCollection {
     let userObj = { username: userDB.user_name, role: userDB.user_role };
     return valid ? userObj : Promise.reject();
   }
-  
+
   async generateToken(record) {
     const token = await jwt.sign(
       { username: record.username, role: record.role },
