@@ -10,7 +10,6 @@ const client = require('../pool');
 
 class UsersCollection {
   async exists(user) {
-    // console.log('user', user);
     const selectQuery = 'SELECT * from users where user_name=$1';
     let safeValues = [user.username];
     let userDb = await client
@@ -20,7 +19,6 @@ class UsersCollection {
   }
   async create(user) {
     let userDb = await this.exists(user);
-    // console.log('here',userDb);
     if (!userDb) {
       let isActivated;
       user.role === 'admin' ? (isActivated = true) : (isActivated = false);
@@ -33,6 +31,7 @@ class UsersCollection {
         isActivated,
       ];
       let userInfo = await client.query(insertQuery, safeValues);
+      console.log('lllllllllllllllllllllll', userInfo);
       return userInfo.rows[0];
     } else {
       return 'This username already used';
@@ -49,6 +48,7 @@ class UsersCollection {
   }
 
   async generateToken(record) {
+    console.log('recooooooooord', record);
     const token = await jwt.sign(
       {
         username: record.user_name,
@@ -82,8 +82,8 @@ class UsersCollection {
     let userDB = await this.exists(record);
     if (!userDB) {
       // console.log('Created new User');
+      this.create(record);
     } else {
-      // console.log('User exists');
       if (this.authenticateBasic(record)) {
         return record;
       }
