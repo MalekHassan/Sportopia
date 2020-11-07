@@ -22,12 +22,15 @@ class UsersCollection {
     let userDb = await this.exists(user);
     // console.log('here',userDb);
     if (!userDb) {
+      let isActivated;
+      user.role === 'admin' ? (isActivated = true) : (isActivated = false);
       const insertQuery =
-        'INSERT INTO users (user_name,user_password,user_role) VALUES ($1,$2,$3) Returning *';
+        'INSERT INTO users (user_name,user_password,user_role,is_activated) VALUES ($1,$2,$3,$4) Returning *';
       let safeValues = [
         user.username,
         bcrypt.hashSync(user.password, 5),
         user.role,
+        isActivated,
       ];
       let userInfo = await client.query(insertQuery, safeValues);
       return userInfo.rows[0];
@@ -45,12 +48,16 @@ class UsersCollection {
     let userObj = { username: userDB.user_name, role: userDB.user_role };
     return valid ? userObj : Promise.reject();
   }
-
-  generateToken(record) {
-    const token = jwt.sign(
+  
+  async generateToken(record) {
+    const token = await jwt.sign(
       { username: record.username, role: record.role },
       SECRET
     );
+    await client.query('Update users SET oauth_token=$1 Where user_name=$2', [
+      token,
+      record.username,
+    ]);
     return token;
   }
 
