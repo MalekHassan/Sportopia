@@ -10,6 +10,8 @@ const app = express();
 const signing = require('./routes/signing');
 const sellerProd = require('./routes/sellerproducts');
 const buyerProd = require('./routes/buyerpeoducts');
+const adminRoute = require('./routes/admin');
+
 // Middleware
 app.use(express.static('./public'));
 app.use(express.json());
@@ -20,6 +22,7 @@ app.use(cors());
 app.use('/', signing);
 app.use('/seller', sellerProd);
 app.use('/buyer', buyerProd);
+app.use('/', adminRoute);
 // Exporting the server
 module.exports = {
   server: app,
