@@ -2,14 +2,16 @@
 const express = require('express');
 const buyerModel = require('../models/products/buyerProduct-collection');
 // const client = require('../models/pool');
+const bearer = require('../models/middleware/bearerAuth');
+const acl = require('../models/middleware/acl');
 
 const router = express.Router();
 
 // Routes
-router.post('/add/comment', buyerAddComment);
-router.put('/update/comment/:id', buyerUpdateComment);
-router.patch('/patch/comment/:id', buyerUpdateComment);
-router.delete('/delete/comment/:id', buyerDeleteComment);
+router.post('/add/comment', bearer, acl('buyer'), buyerAddComment);
+router.put('/update/comment/:id', bearer, acl('buyer'), buyerUpdateComment);
+router.patch('/patch/comment/:id', bearer, acl('buyer'), buyerUpdateComment);
+router.delete('/delete/comment/:id', bearer, acl('buyer'), buyerDeleteComment);
 
 // functions
 async function buyerAddComment(req, res, next) {
