@@ -8,7 +8,8 @@
     "start": "node index.js",
     "lint": "eslint *.js",
     "prettier": "prettier  all --write . package.json",
-    "prettify": "pretty-quick --staged"
+    "prettify": "pretty-quick --staged",
+    "fake": "node ./data/fake-data.js"
   },
   "repository": {
     "type": "git",
