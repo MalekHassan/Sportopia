@@ -10,6 +10,7 @@ const app = express();
 const signing = require('./routes/signing');
 const sellerProd = require('./routes/sellerproducts');
 const buyerProd = require('./routes/buyerpeoducts');
+const adminRoute = require('./routes/admin');
 const notExist = require('./models/middleware/404');
 const serverError = require('./models/middleware/500');
 
@@ -23,6 +24,7 @@ app.use(cors());
 app.use('/', signing);
 app.use('/seller', sellerProd);
 app.use('/buyer', buyerProd);
+app.use('/', adminRoute);
 
 //Error middleware
 app.use('*', notExist);
