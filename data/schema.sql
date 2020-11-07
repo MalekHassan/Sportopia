@@ -11,6 +11,8 @@ IF NOT EXISTS users
 (255),
  user_password VARCHAR
 (255),
+    oauth_token VARCHAR
+(255),
  user_role roles,
  is_activated boolean
 );
@@ -77,7 +79,7 @@ IF NOT EXISTS products
 );
 
 CREATE TABLE
-IF NOT EXISTS user_favorite
+IF NOT EXISTS buyer_favorite
 (
     id SERIAL PRIMARY KEY,
     u_id INTEGER REFERENCES buyer
@@ -88,7 +90,7 @@ IF NOT EXISTS user_favorite
 );
 
 CREATE TABLE
-IF NOT EXISTS user_cart
+IF NOT EXISTS buyer_cart
 (
     id SERIAL PRIMARY KEY,
     u_id INTEGER REFERENCES buyer
@@ -100,10 +102,10 @@ IF NOT EXISTS user_cart
 );
 
 CREATE TABLE
-IF NOT EXISTS user_comments
+IF NOT EXISTS buyer_comments
 (
     id SERIAL PRIMARY KEY,
-    u_c_id INTEGER REFERENCES user_cart
+    u_c_id INTEGER REFERENCES buyer_cart
 (id),
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
