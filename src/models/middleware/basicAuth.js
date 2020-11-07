@@ -12,11 +12,11 @@ module.exports = (req, res, next) => {
     const basicAuth = req.headers.authorization.split(' ').pop();
     const [username, pass] = base64.decode(basicAuth).split(':');
     let obj = { username: username, password: pass };
-    // console.log(obj);
     userCollection
       .authenticateBasic(obj)
-      .then((validUser) => {
-        req.token = userCollection.generateToken(validUser);
+      .then(async (validUser) => {
+        req.token = await userCollection.generateToken(validUser);
+        req.user = validUser;
         next();
       })
       .catch((err) => {
