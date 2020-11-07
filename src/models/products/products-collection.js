@@ -5,17 +5,17 @@ const client = require('../pool');
 
 class Products {
   async create(product) {
-    const selectQuery =
-      'SELECT seller_id,describtion from products where describtion=$1';
-    let safeValues = [product.describtion];
+    const selectQuery = 'SELECT seller_id,name from products where name=$1';
+    let safeValues = [product.name];
     let productDb = await client
       .query(selectQuery, safeValues)
       .then((data) => data.rows[0]);
     console.log(Boolean(productDb));
     if (!productDb) {
       const insertQuery =
-        'INSERT INTO products (describtion ,main_img ,images,price,category_id) VALUES ($1,$2,$3,$4,$5) RETURNING *';
+        'INSERT INTO products (name,describtion ,main_img ,images,price,category_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *';
       safeValues = [
+        product.name,
         product.describtion,
         product.main_img,
         product.images,
@@ -29,8 +29,9 @@ class Products {
     }
   }
   async update(product, productID) {
-    let updateQuery = `UPDATE products SET describtion=$1 ,main_img=$2 ,images=$3,price=$4,category_id=$5 WHERE id=$6 RETURNING *;`;
+    let updateQuery = `UPDATE products SET name=$1,  describtion=$2 ,main_img=$3 ,images=$4,price=$5,category_id=$6 WHERE id=$7 RETURNING *;`;
     let safeValues = [
+      product.name,
       product.describtion,
       product.main_img,
       product.images,
@@ -39,21 +40,11 @@ class Products {
       productID,
     ];
     let productInfo = await client.query(updateQuery, safeValues);
-    // .then(async () => {
-    // return await client.query(
-    //     `SELECT * FROM products inner join category on products.category_id = category.id where products.id=$1;`
-    //     ,[productID]
-    //   )
-    //   .then((result) => {
-    //       console.log('ffffffffff',productID);
-    //     return result.rows[0];
-    //   });
-    //   });
     return productInfo.rows[0];
   }
-  async delete(deleteId) {
-    let deleteQuery = `delete from products where id=$1 RETURNING *;`;
-    let safeValues = [deleteId];
+  async delete(deleteId, productStatus = true) {
+    let deleteQuery = `update products set is_deleted=$2 where id=$1 RETURNING *;`;
+    let safeValues = [deleteId, productStatus];
     let productDeleting = await client.query(deleteQuery, safeValues);
     return productDeleting.rows[0];
   }

@@ -28,12 +28,19 @@ async function sellerAddProd(req, res, next) {
 
 async function sellerUpdateProd(req, res) {
   let productInfo = await productModel.update(req.body, req.params.id);
-  res.status(201);
-  console.log('gggggggggggggggggggggggggggggg', productInfo);
-  res.json({
-    message: 'your product has been updated',
-    user: productInfo,
-  });
+  console.log(productInfo);
+  if (productInfo) {
+    res.status(201);
+    res.json({
+      message: 'your product has been updated',
+      user: productInfo,
+    });
+  } else {
+    res.status(400);
+    res.json({
+      message: 'your product id is wrong',
+    });
+  }
 }
 async function sellerDelete(req, res) {
   let productInfo = await productModel.delete(req.params.id);
