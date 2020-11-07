@@ -30,6 +30,14 @@ class AdminCollection {
       .query(updateQuery, safeValues)
       .then((result) => result.rows[0]);
   }
+
+  async toggleComments(table, id) {
+    let updateQuery = `UPDATE ${table} set is_activated= NOT is_activated WHERE u_id=$1 Returning user_name,is_activated`;
+    let safeValues = [id];
+    return await client
+      .query(updateQuery, safeValues)
+      .then((result) => result.rows[0]);
+  }
 }
 
 module.exports = new AdminCollection();

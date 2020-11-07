@@ -4,14 +4,23 @@ const adminCollection = require('../models/users/admin-collection');
 const router = express.Router();
 const bearer = require('../models/middleware/bearerAuth');
 const acl = require('../models/middleware/acl');
+const getModel = require('../middleware/comment_n_product');
+router.param('table', getModel);
+let allMiddleware = [bearer, acl('admin')];
 
 // Note add cli here for admin
 // Routes
-router.get('/buyers', bearer, acl('admin'), getBuyers);
-router.get('/buyers/:page', bearer, acl('admin'), getBuyers);
-router.get('/sellers', bearer, acl('admin'), getSellers);
-router.get('/sellers/:page', bearer, acl('admin'), getSellers);
-router.post('/toggle/:id', bearer, acl('admin'), activateUser);
+router.get('/buyers', [...allMiddleware], getBuyers);
+router.get('/buyers/:page', [...allMiddleware], getBuyers);
+router.get('/sellers', [...allMiddleware], getSellers);
+router.get('/sellers/:page', [...allMiddleware], getSellers);
+router.post('/toggle/:id', [...allMiddleware], activateUser);
+router.post(
+  '/delete/:table/:id',
+  [...allMiddleware],
+  getModel,
+  toggleCommentsProducts
+);
 
 // Functions
 async function getBuyers(req, res, next) {
@@ -57,6 +66,19 @@ async function activateUser(req, res, next) {
       activeUser.is_activated ? 'Activated' : 'Deactivated'
     }`,
     user: activeUser,
+  });
+}
+
+async function toggleCommentsProducts(req, res, next) {
+  const table = req.table;
+  const id = req.params.id;
+  let deleted = await adminCollection.toggleComments(table, id);
+  res.status(200);
+  res.json({
+    message: `This Comment now is ${
+      deleted.is_activated ? 'Activated' : 'Deleted'
+    }`,
+    table: deleted,
   });
 }
 module.exports = router;

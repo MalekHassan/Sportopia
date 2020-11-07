@@ -92,17 +92,6 @@ IF NOT EXISTS buyer_cart
 (id),
      p_id INTEGER REFERENCES products
 (id),
-
-    is_deleted boolean
-);
-CREATE TABLE
-IF NOT EXISTS buyer_cart
-(
-    id SERIAL PRIMARY KEY,
-    u_id INTEGER REFERENCES buyer
-(id),
-     p_id INTEGER REFERENCES products
-(id),
     quaintitny INTEGER,
     is_bought boolean
 );
