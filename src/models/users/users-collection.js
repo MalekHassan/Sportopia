@@ -35,21 +35,17 @@ class UsersCollection {
       return 'This username already used';
     }
   }
+
   async authenticateBasic(record) {
     let userDB = await this.exists(record);
-    // console.log('here', userDB);
     if (!userDB) {
-      // console.log('user doesnt exist');
       return Promise.reject('User Does not exist');
     }
-    // console.log('user exists');
-    // console.log(record.password, userDB.user_password);
     const valid = await bcrypt.compare(record.password, userDB.user_password);
     let userObj = { username: userDB.user_name, role: userDB.user_role };
-    // console.log('valid', valid);
-    // console.log('user obj', userObj);
     return valid ? userObj : Promise.reject();
   }
+
   generateToken(record) {
     const token = jwt.sign(
       { username: record.username, role: record.role },
@@ -57,6 +53,23 @@ class UsersCollection {
     );
     return token;
   }
+
+  async authenticateToken(token) {
+    try {
+      console.log('inside authtoken');
+      const tokenObject = jwt.verify(token, SECRET);
+      console.log('TOKEN OBJECT', tokenObject);
+      let userDB = await this.exists(tokenObject);
+      if (userDB) {
+        return Promise.resolve(tokenObject);
+      } else {
+        return Promise.reject();
+      }
+    } catch (e) {
+      return Promise.reject(e.message);
+    }
+  }
+
   async OAuth(record) {
     let userDB = await this.exists(record);
     if (!userDB) {
