@@ -2,7 +2,6 @@ CREATE TYPE roles AS ENUM
 ('admin', 'seller', 'buyer');
 CREATE TYPE user_gender AS ENUM
 ('male', 'female');
-
 CREATE TABLE
 IF NOT EXISTS users
 (
@@ -16,7 +15,6 @@ IF NOT EXISTS users
  user_role roles,
  is_activated boolean
 );
-
 CREATE TABLE
 IF NOT EXISTS buyer
 (
@@ -35,7 +33,6 @@ IF NOT EXISTS buyer
     card_number VARCHAR
 (255)
 );
-
 CREATE TABLE
 IF NOT EXISTS seller
 (
@@ -49,16 +46,14 @@ IF NOT EXISTS seller
     telephone VARCHAR
 (255)
 );
-
-
 CREATE TABLE
 IF NOT EXISTS category
 (
     id SERIAL PRIMARY KEY,
-    
     category_name VARCHAR
 (255)
 );
+
 
 CREATE TABLE
 IF NOT EXISTS products
@@ -97,6 +92,17 @@ IF NOT EXISTS buyer_cart
 (id),
      p_id INTEGER REFERENCES products
 (id),
+
+    is_deleted boolean
+);
+CREATE TABLE
+IF NOT EXISTS buyer_cart
+(
+    id SERIAL PRIMARY KEY,
+    u_id INTEGER REFERENCES buyer
+(id),
+     p_id INTEGER REFERENCES products
+(id),
     quaintitny INTEGER,
     is_bought boolean
 );
@@ -111,7 +117,3 @@ IF NOT EXISTS buyer_comments
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_deleted boolean
 );
-
-
-
-  
