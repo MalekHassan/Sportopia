@@ -7,7 +7,11 @@ module.exports = (req, res, next) => {
     console.log('__TOKEN__', token);
     users
       .authenticateToken(token)
-      .then((validUser) => {
+      .then(async (validUser) => {
+        if (validUser.user_role !== 'admin') {
+          validUser = await users.sellerOBuyer(validUser);
+        }
+        console.log('VALID USER _____', validUser);
         req.user = validUser;
         next();
       })

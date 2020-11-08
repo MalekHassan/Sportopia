@@ -4,17 +4,17 @@ require('dotenv').config();
 const client = require('../pool');
 
 class Cart {
-  async insertToCart(productId, details) {
+  async insertToCart(productId, userId) {
     const insertQuery =
       'INSERT INTO buyer_cart (p_id,u_id ,quaintitny,is_bought) VALUES ($1,$2,$3,$4) RETURNING *';
-    let safeValues = [productId.id, details.u_id, details.quaintitny, false];
+    let safeValues = [productId, userId, 1, false];
     let productInfo = await client.query(insertQuery, safeValues);
     return productInfo.rows[0];
   }
-  async buyNow(productId, details) {
+  async buyNow(productId, userId, quaintitny) {
     const insertQuery =
       'INSERT INTO buyer_cart (p_id,u_id ,quaintitny,is_bought) VALUES ($1,$2,$3,$4) RETURNING *';
-    let safeValues = [productId.id, details.u_id, details.quaintitny, true];
+    let safeValues = [parseInt(productId), userId, quaintitny, true];
     let productInfo = await client.query(insertQuery, safeValues);
     return productInfo.rows[0];
   }
@@ -22,21 +22,27 @@ class Cart {
   async update(productId) {
     const selectQuery = 'SELECT is_bought from buyer_cart where id=$1';
     let safeValues = [productId];
-    let productDb = await client.query(selectQuery, safeValues);
-    if (!productDb.rows[0].is_bought) {
-      let updateQuery = `UPDATE buyer_cart SET is_bought=$1 WHERE id=$2 RETURNING *;`;
-      safeValues = [true, productId];
-      let productInfo = await client.query(updateQuery, safeValues);
-      return productInfo.rows[0];
+    let productDb = await client
+      .query(selectQuery, safeValues)
+      .then((result) => result.rows[0]);
+    if (!productDb.is_bought) {
+      let updateQuery = `UPDATE buyer_cart SET is_bought= not is_bought WHERE id=$1 RETURNING *;`;
+      safeValues = [productId];
+      let productInfo = await client
+        .query(updateQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return productInfo;
     } else {
-      return 'You bought this product from your cart';
+      return 'This Product already been bought';
     }
   }
   async deleteFromCart(deleteId) {
     let deleteQuery = `delete from buyer_cart where id=$1 RETURNING *;`;
     let safeValues = [deleteId];
-    let productDeleting = await client.query(deleteQuery, safeValues);
-    return productDeleting.rows[0];
+    let productDeleting = await client
+      .query(deleteQuery, safeValues)
+      .then((result) => result.rows[0]);
+    return productDeleting;
   }
 }
 module.exports = new Cart();

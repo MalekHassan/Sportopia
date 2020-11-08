@@ -9,7 +9,8 @@
     "lint": "eslint *.js",
     "prettier": "prettier  all --write . package.json",
     "prettify": "pretty-quick --staged",
-    "fake": "node ./data/fake-data.js"
+    "fake": "node ./data/fake-data.js",
+    "drop": "node ./data/drop_n_create.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "pg": "^8.4.2",
+    "pgtools": "^0.3.0",
     "socket.io": "^2.3.0",
     "superagent": "^6.1.0"
   },

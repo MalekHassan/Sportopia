@@ -4,7 +4,7 @@ require('dotenv').config();
 const client = require('../pool');
 
 class Products {
-  async create(product) {
+  async create(product, user, categoryId) {
     const selectQuery = 'SELECT seller_id,name from products where name=$1';
     let safeValues = [product.name];
     let productDb = await client
@@ -13,14 +13,17 @@ class Products {
     console.log(Boolean(productDb));
     if (!productDb) {
       const insertQuery =
-        'INSERT INTO products (name,describtion ,main_img ,images,price,category_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *';
+        'INSERT INTO products (seller_id,name,description ,main_img ,images,price,category_id,quantity,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *';
       safeValues = [
+        user.id,
         product.name,
-        product.describtion,
+        product.description,
         product.main_img,
         product.images,
         product.price,
-        product.category_id,
+        categoryId,
+        product.quantity,
+        false,
       ];
       let productInfo = await client.query(insertQuery, safeValues);
       return productInfo.rows[0];
@@ -29,22 +32,28 @@ class Products {
     }
   }
   async update(product, productID) {
-    let updateQuery = `UPDATE products SET name=$1,  describtion=$2 ,main_img=$3 ,images=$4,price=$5,category_id=$6 WHERE id=$7 RETURNING *;`;
+    let productDb = await client
+      .query(`select * from products where id=${productID}`)
+      .then((result) => result.rows[0]);
+    console.log(productDb);
+    let updateQuery = `UPDATE products SET name=$1, description=$2 ,main_img=$3 ,images=$4,price=$5,category_id=$6,quantity=$7,is_deleted=$8 WHERE id=$9 RETURNING *;`;
     let safeValues = [
-      product.name,
-      product.describtion,
-      product.main_img,
-      product.images,
-      product.price,
-      product.category_id,
+      product.name ? product.name : productDb.name,
+      product.description ? product.description : productDb.description,
+      product.main_img ? product.main_img : productDb.main_img,
+      product.images ? product.images : productDb.images,
+      product.price ? product.price : productDb.price,
+      product.category_id ? product.category_id : productDb.category_id,
+      product.quantity ? product.quantity : productDb.quantity,
+      productDb.is_deleted,
       productID,
     ];
     let productInfo = await client.query(updateQuery, safeValues);
     return productInfo.rows[0];
   }
-  async delete(deleteId, productStatus = true) {
-    let deleteQuery = `update products set is_deleted=$2 where id=$1 RETURNING *;`;
-    let safeValues = [deleteId, productStatus];
+  async delete(deleteId) {
+    let deleteQuery = `update products set is_deleted='true' where id=$1 RETURNING *;`;
+    let safeValues = [deleteId];
     let productDeleting = await client.query(deleteQuery, safeValues);
     return productDeleting.rows[0];
   }

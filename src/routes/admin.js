@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 'use strict';
 const express = require('express');
 const adminCollection = require('../models/users/admin-collection');
