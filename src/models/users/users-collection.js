@@ -21,8 +21,10 @@ class UsersCollection {
     let userDb = await this.exists(user);
     if (!userDb) {
       let isActivated;
-      user.role === 'admin' ? (isActivated = true) : (isActivated = false);
-      const insertQuery =
+      user.role === 'admin' || user.role === 'buyer'
+        ? (isActivated = true)
+        : (isActivated = false);
+      let insertQuery =
         'INSERT INTO users (user_name,user_password,user_role,is_activated) VALUES ($1,$2,$3,$4) Returning *';
       let safeValues = [
         user.username,
@@ -30,14 +32,44 @@ class UsersCollection {
         user.role,
         isActivated,
       ];
-      let userInfo = await client.query(insertQuery, safeValues);
-      console.log('lllllllllllllllllllllll', userInfo);
-      return userInfo.rows[0];
+      let userInfo = await client
+        .query(insertQuery, safeValues)
+        .then((result) => result.rows[0]);
+      let userID = userInfo.u_id;
+      if (userInfo.user_role !== 'admin') {
+        userInfo = await this.insert(userID, user);
+      }
+      return userInfo;
     } else {
       return 'This username already used';
     }
   }
-
+  async insert(userID, user) {
+    let insertQuery;
+    let safeValues;
+    if (user.role === 'seller') {
+      insertQuery = `INSERT INTO seller (u_id,company_name,adress,telephone) VALUES ($1,$2,$3,$4) Returning *`;
+      safeValues = [userID, user.companyname, user.adress, user.telephone];
+      let seller = await client
+        .query(insertQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return seller;
+    } else {
+      insertQuery = `INSERT INTO buyer (u_id,first_name,last_name,adress,telephone,gender) VALUES ($1,$2,$3,$4,$5,$6) Returning *`;
+      safeValues = [
+        userID,
+        user.firstname,
+        user.lastname,
+        user.adress,
+        user.telephone,
+        user.gender,
+      ];
+      let buyer = await client
+        .query(insertQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return buyer;
+    }
+  }
   async authenticateBasic(record) {
     let userDB = await this.exists(record);
     if (!userDB) {
