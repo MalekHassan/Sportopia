@@ -1,13 +1,15 @@
 'use strict';
 const express = require('express');
 const favModel = require('../models/products/favoriteProduct-collection');
-// const client = require('../models/pool');
+const bearer = require('../models/middleware/bearerAuth');
+const acl = require('../models/middleware/acl');
 
+let arrayMiddleware = [bearer, acl('buyer')];
 const router = express.Router();
 
 // Routes
-router.post('/add/:id', favoriteAddProd);
-router.delete('/delete', favoriteDeleteProd);
+router.post('/add/:id', [...arrayMiddleware], favoriteAddProd);
+router.delete('/delete', [...arrayMiddleware], favoriteDeleteProd);
 
 // adding function to favorite products (table : buyer_favorite)
 async function favoriteAddProd(req, res) {

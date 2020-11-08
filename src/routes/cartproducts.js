@@ -2,15 +2,17 @@
 const express = require('express');
 const { buyNow } = require('../models/products/cartProduct-collection');
 const cartModel = require('../models/products/cartProduct-collection');
-// const client = require('../models/pool');
+const bearer = require('../models/middleware/bearerAuth');
+const acl = require('../models/middleware/acl');
 
+let arrayMiddleware = [bearer, acl('buyer')];
 const router = express.Router();
 
 // Routes
-router.post('/add/:id', cartAddProd);
-router.post('/buyNow/:id', buyNowFun);
-router.put('/buyFromCart/:id', buyFromCartfunc);
-router.delete('/delete', cartDeleteProd);
+router.post('/add/:id', [...arrayMiddleware], cartAddProd);
+router.post('/buyNow/:id', [...arrayMiddleware], buyNowFun);
+router.put('/buyFromCart/:id', [...arrayMiddleware], buyFromCartfunc);
+router.delete('/delete', [...arrayMiddleware], cartDeleteProd);
 
 // add products to the cart (table :buyer_cart)
 async function cartAddProd(req, res) {

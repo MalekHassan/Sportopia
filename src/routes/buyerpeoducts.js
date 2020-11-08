@@ -3,10 +3,9 @@ const express = require('express');
 const buyerModel = require('../models/products/buyerProduct-collection');
 // const client = require('../models/pool');
 const bearer = require('../models/middleware/bearerAuth');
-const isActivated = require('../middleware/isActivated');
 const acl = require('../models/middleware/acl');
 
-let arrayMiddleware = [bearer, isActivated, acl('buyer')];
+let arrayMiddleware = [bearer, acl('buyer')];
 
 const router = express.Router();
 
