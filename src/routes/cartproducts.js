@@ -1,6 +1,6 @@
+/* eslint-disable comma-dangle */
 'use strict';
 const express = require('express');
-const { buyNow } = require('../models/products/cartProduct-collection');
 const cartModel = require('../models/products/cartProduct-collection');
 const bearer = require('../models/middleware/bearerAuth');
 const acl = require('../models/middleware/acl');
@@ -12,11 +12,12 @@ const router = express.Router();
 router.post('/add/:id', [...arrayMiddleware], cartAddProd);
 router.post('/buyNow/:id', [...arrayMiddleware], buyNowFun);
 router.put('/buyFromCart/:id', [...arrayMiddleware], buyFromCartfunc);
-router.delete('/delete', [...arrayMiddleware], cartDeleteProd);
+router.delete('/delete/:id', [...arrayMiddleware], cartDeleteProd);
 
 // add products to the cart (table :buyer_cart)
+// No need for anything inside the request body
 async function cartAddProd(req, res) {
-  let productInfo = await cartModel.insertToCart(req.params, req.body);
+  let productInfo = await cartModel.insertToCart(req.params.id, req.user.id);
   res.status(201);
   console.log(productInfo);
   res.json({
@@ -40,10 +41,14 @@ async function buyFromCartfunc(req, res) {
     });
   }
 }
-
+// quaintitny should be sent in the body
 // To buy directly with out a cart (table : buyer_cart)
 async function buyNowFun(req, res) {
-  let productInfo = await cartModel.buyNow(req.params);
+  let productInfo = await cartModel.buyNow(
+    req.params.id,
+    req.user.id,
+    req.body.quaintitny
+  );
   res.status(201);
   console.log(productInfo);
   res.json({
