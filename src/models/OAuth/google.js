@@ -72,9 +72,9 @@ async function getUser(remoteUser) {
   };
 
   let user = await users.OAuth(userRecord);
-  let token = users.generateToken(userRecord);
+  let token = await users.generateToken(userRecord);
 
-  // console.log(user);
+  console.log('this is a token', token);
 
   let visibleUser = {
     username: remoteUser.name,
