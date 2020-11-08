@@ -48,7 +48,6 @@ class UsersCollection {
   }
 
   async generateToken(record) {
-    console.log('recooooooooord', record);
     const token = await jwt.sign(
       {
         username: record.user_name,
@@ -84,6 +83,7 @@ class UsersCollection {
       // console.log('Created new User');
       this.create(record);
     } else {
+      console.log('already exists');
       if (this.authenticateBasic(record)) {
         return record;
       }
