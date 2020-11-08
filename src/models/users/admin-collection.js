@@ -32,7 +32,7 @@ class AdminCollection {
   }
 
   async toggleComments(table, id) {
-    let updateQuery = `UPDATE ${table} set is_deleted= NOT is_deleted WHERE u_id=$1 Returning user_name,is_deleted`;
+    let updateQuery = `UPDATE ${table} set is_deleted= NOT is_deleted WHERE id=$1 Returning *`;
     let safeValues = [id];
     return await client
       .query(updateQuery, safeValues)
