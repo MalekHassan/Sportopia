@@ -21,23 +21,55 @@ class UsersCollection {
     let userDb = await this.exists(user);
     if (!userDb) {
       let isActivated;
-      user.role === 'admin' ? (isActivated = true) : (isActivated = false);
-      const insertQuery =
-        'INSERT INTO users (user_name,user_password,user_role,is_activated) VALUES ($1,$2,$3,$4) Returning *';
+      user.role === 'admin' || user.role === 'buyer'
+        ? (isActivated = true)
+        : (isActivated = false);
+      let insertQuery =
+        'INSERT INTO users (user_name,user_password,user_role,is_activated) VALUES ($1,$2,$3,$4) Returning  u_id,user_name,is_activated,user_role';
       let safeValues = [
         user.username,
         bcrypt.hashSync(user.password, 5),
         user.role,
         isActivated,
       ];
-      let userInfo = await client.query(insertQuery, safeValues);
-      console.log('lllllllllllllllllllllll', userInfo);
-      return userInfo.rows[0];
+      let userInfo = await client
+        .query(insertQuery, safeValues)
+        .then((result) => result.rows[0]);
+      let userID = userInfo.u_id;
+      if (userInfo.user_role !== 'admin') {
+        userInfo = await this.insert(userID, user);
+      }
+      return userInfo;
     } else {
       return 'This username already used';
     }
   }
-
+  async insert(userID, user) {
+    let insertQuery;
+    let safeValues;
+    if (user.role === 'seller') {
+      insertQuery = `INSERT INTO seller (u_id,company_name,adress,telephone) VALUES ($1,$2,$3,$4) Returning *`;
+      safeValues = [userID, user.companyname, user.adress, user.telephone];
+      let seller = await client
+        .query(insertQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return seller;
+    } else {
+      insertQuery = `INSERT INTO buyer (u_id,first_name,last_name,adress,telephone,gender) VALUES ($1,$2,$3,$4,$5,$6) Returning *`;
+      safeValues = [
+        userID,
+        user.firstname,
+        user.lastname,
+        user.adress,
+        user.telephone,
+        user.gender,
+      ];
+      let buyer = await client
+        .query(insertQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return buyer;
+    }
+  }
   async authenticateBasic(record) {
     let userDB = await this.exists(record);
     if (!userDB) {
@@ -87,6 +119,26 @@ class UsersCollection {
       if (this.authenticateBasic(record)) {
         return record;
       }
+    }
+  }
+
+  async sellerOBuyer(user) {
+    let selectQuery;
+    let safeValues;
+    if (user.user_role === 'seller') {
+      selectQuery = `select user_name,user_role,is_activated,id from seller inner join users on seller.u_id = users.u_id where users.u_id =$1`;
+      safeValues = [user.u_id];
+      let userDb = await client
+        .query(selectQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return userDb;
+    } else {
+      selectQuery = `select user_name,user_role,is_activated,id from buyer inner join users on buyer.u_id = users.u_id where users.u_id =$1`;
+      safeValues = [user.u_id];
+      let userDb = await client
+        .query(selectQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return userDb;
     }
   }
 }
