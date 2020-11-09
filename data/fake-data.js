@@ -13,6 +13,7 @@ insertProduct();
 insertBuyer();
 buyerFavorite();
 buyerCart();
+insertComment();
 function insertCategory() {
   let arrayCategory = [
     'Sports Clothing',
@@ -217,6 +218,11 @@ function buyerCart() {
     { u_id: 3, p_id: 33, quantity: 2, is_bought: false },
     { u_id: 3, p_id: 25, quantity: 8, is_bought: false },
     { u_id: 1, p_id: 15, quantity: 3, is_bought: false },
+    { u_id: 2, p_id: 19, quantity: 8, is_bought: true },
+    { u_id: 3, p_id: 15, quantity: 2, is_bought: true },
+    { u_id: 3, p_id: 33, quantity: 2, is_bought: true },
+    { u_id: 3, p_id: 25, quantity: 8, is_bought: true },
+    { u_id: 1, p_id: 15, quantity: 3, is_bought: true },
   ];
   favorite.forEach(async (user) => {
     let InsertQuery =
@@ -225,6 +231,119 @@ function buyerCart() {
     await client.query(InsertQuery, safeValues);
   });
 }
+///////////////////////////////////////////////////
+function insertComment() {
+  let arrayComment = [
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product in cart 5',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product in cart 5',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product in cart 5',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product in cart 5',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 6,
+      comment: 'this comment for bought product in cart 6',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 6,
+      comment: 'this comment for bought product in cart 6',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 6,
+      comment: 'this comment for bought product in cart 6',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 7,
+      comment: 'this comment for bought product in cart 7',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 7,
+      comment: 'this comment for bought product in cart 7',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 7,
+      comment: 'this comment for bought product in cart 7',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 8,
+      comment: 'this comment for bought product in cart 8',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 8,
+      comment: 'this comment for bought product in cart 8',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 8,
+      comment: 'this comment for bought product in cart 8',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 9,
+      comment: 'this comment for bought product in cart 9',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 9,
+      comment: 'this comment for bought product in cart 9',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 9,
+      comment: 'this comment for bought product in cart 9',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 10,
+      comment: 'this comment for bought product in cart 10',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 10,
+      comment: 'this comment for bought product in cart 10',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 10,
+      comment: 'this comment for bought product in cart 10',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product 5',
+      is_deleted: false,
+    },
+  ];
+  arrayComment.forEach(async (item) => {
+    let InsertQuery =
+      'INSERT INTO buyer_comments (u_c_id,comment,is_deleted) VALUES ($1,$2,$3)';
+    let safeValues = [item.u_c_id, item.comment, item.is_deleted];
+    await client.query(InsertQuery, safeValues);
+  });
+  console.log('Your Comments are ready 👌'.cyan.bold);
+}
+
 function insertProduct() {
   console.log('Your Products are ready 👌'.cyan.bold);
 
