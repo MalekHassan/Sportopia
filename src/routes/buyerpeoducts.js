@@ -15,6 +15,7 @@ router.post('/add/comment/:id', [...arrayMiddleware], buyerAddComment);
 router.put('/update/comment/:id', [...arrayMiddleware], buyerUpdateComment);
 router.patch('/patch/comment/:id', [...arrayMiddleware], buyerUpdateComment);
 router.delete('/delete/comment/:id', [...arrayMiddleware], buyerDeleteComment);
+router.get('/category/:id', [...arrayMiddleware], categoryHandler);
 
 // functions
 // Buyer_cart is passed in the request
@@ -65,5 +66,22 @@ async function buyerDeleteComment(req, res) {
       user: productInfo,
     });
   }
+}
+async function categoryHandler(req, res) {
+  let categoryID = req.params.id;
+  let pageNumber = req.params.page;
+  let products;
+  if (pageNumber) {
+    products = await buyerModel.getProducts(pageNumber, categoryID);
+  } else {
+    pageNumber = 0;
+    products = await buyerModel.getProducts(0, categoryID);
+  }
+  res.status(200);
+  res.json({
+    pageNumber: pageNumber + 1,
+    count: products.length,
+    result: products,
+  });
 }
 module.exports = router;
