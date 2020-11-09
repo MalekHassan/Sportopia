@@ -7,6 +7,7 @@ module.exports = (role) => {
         next();
       } else {
         // console.log(`User isn't`, role);
+        res.status(403);
         res.send(`You don't have access to this page.`);
         next('Access Denied');
       }

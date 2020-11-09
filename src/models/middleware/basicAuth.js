@@ -20,6 +20,7 @@ module.exports = (req, res, next) => {
         next();
       })
       .catch((err) => {
+        res.status(403);
         res.send('Wrong password or user does not exist');
         next('Invalid Login');
       });

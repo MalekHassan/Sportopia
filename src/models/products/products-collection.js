@@ -10,10 +10,9 @@ class Products {
     let productDb = await client
       .query(selectQuery, safeValues)
       .then((data) => data.rows[0]);
-    console.log(Boolean(productDb));
     if (!productDb) {
       const insertQuery =
-        'INSERT INTO products (seller_id,name,description ,main_img ,images,price,category_id,quantity,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *';
+        'INSERT INTO products (seller_id,name,description,main_img,images,price,category_id,quantity,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *';
       safeValues = [
         user.id,
         product.name,
@@ -35,7 +34,6 @@ class Products {
     let productDb = await client
       .query(`select * from products where id=${productID}`)
       .then((result) => result.rows[0]);
-    console.log(productDb);
     let updateQuery = `UPDATE products SET name=$1, description=$2 ,main_img=$3 ,images=$4,price=$5,category_id=$6,quantity=$7,is_deleted=$8 WHERE id=$9 RETURNING *;`;
     let safeValues = [
       product.name ? product.name : productDb.name,

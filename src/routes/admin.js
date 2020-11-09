@@ -22,6 +22,7 @@ router.post(
   getModel,
   toggleCommentsProducts
 );
+router.post('/category', [...allMiddleware], addCategory);
 
 // Functions
 async function getBuyers(req, res, next) {
@@ -33,7 +34,6 @@ async function getBuyers(req, res, next) {
     pageNumber = 0;
     users = await adminCollection.getBuyers();
   }
-  console.log(users);
   res.status(200);
   res.json({
     pageNumber: pageNumber + 1,
@@ -61,6 +61,7 @@ async function getSellers(req, res, next) {
 async function activateUser(req, res, next) {
   let userId = req.params.id;
   let activeUser = await adminCollection.toggleUser(userId);
+  console.log(activeUser);
   res.status(200);
   res.json({
     message: `This user now is ${
@@ -81,5 +82,21 @@ async function toggleCommentsProducts(req, res, next) {
     }`,
     table: deleted,
   });
+}
+
+async function addCategory(req, res, next) {
+  let newCategory = await adminCollection.insertCategory(req.body.name);
+  if (typeof newCategory !== 'string') {
+    res.status(201);
+    res.json({
+      message: 'A new Category has been added',
+      category: newCategory,
+    });
+  } else {
+    res.status(200);
+    res.json({
+      message: newCategory,
+    });
+  }
 }
 module.exports = router;

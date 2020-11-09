@@ -11,6 +11,7 @@ let arrayMiddleware = [bearer, acl('buyer')];
 const router = express.Router();
 
 // Routes
+router.get('/joinbidd/:id', joinBiddingRoom);
 router.post('/add/comment/:id', [...arrayMiddleware], buyerAddComment);
 router.put('/update/comment/:id', [...arrayMiddleware], buyerUpdateComment);
 router.patch('/patch/comment/:id', [...arrayMiddleware], buyerUpdateComment);
@@ -21,52 +22,65 @@ router.get('/category/:id', [...arrayMiddleware], categoryHandler);
 // Buyer_cart is passed in the request
 // the body should contain the comment
 async function buyerAddComment(req, res) {
-  let productInfo = await buyerModel.create(req.params.id, req.body.comment);
-  if (typeof productInfo === 'string') {
+  let commentInfo = await buyerModel.create(req.params.id, req.body.comment);
+  if (typeof commentInfo === 'string') {
     res.json({
-      message: productInfo,
-    });
-  }
-  res.status(201);
-  console.log(productInfo);
-  res.json({
-    message: 'A new comment has been added',
-    user: productInfo,
-  });
-}
-
-// request body should contain a comment
-async function buyerUpdateComment(req, res) {
-  let productInfo = await buyerModel.update(req.body.comment, req.params.id);
-  if (typeof productInfo === 'string') {
-    res.status(201);
-    res.json({
-      message: productInfo,
+      message: commentInfo,
     });
   } else {
     res.status(201);
     res.json({
+      message: 'A new comment has been added',
+      comment: commentInfo,
+    });
+  }
+}
+
+// request body should contain a comment
+async function buyerUpdateComment(req, res) {
+  let commentInfo = await buyerModel.update(req.body.comment, req.params.id);
+  if (typeof commentInfo === 'string') {
+    res.status(200);
+    res.json({
+      message: commentInfo,
+    });
+  } else {
+    res.status(200);
+    res.json({
       message: 'your comment has been updated',
-      user: productInfo,
+      comment: commentInfo,
     });
   }
 }
 
 async function buyerDeleteComment(req, res) {
-  let productInfo = await buyerModel.delete(req.params.id);
-  if (typeof productInfo === 'string') {
-    res.status(201);
+  let commentInfo = await buyerModel.delete(req.params.id);
+  if (typeof commentInfo === 'string') {
+    res.status(200);
     res.json({
-      message: productInfo,
+      message: commentInfo,
     });
   } else {
-    res.status(201);
+    res.status(200);
     res.json({
       message: 'your comment has been Deleted',
-      user: productInfo,
+      comment: commentInfo,
     });
   }
 }
+
+const ioClient = require('socket.io-client');
+
+// Send user form request, and the product id form routes
+async function joinBiddingRoom(req, res) {
+  const userId = req.headers.cookie.split('=')[1];
+  const clientConnection = ioClient.connect('http://localhost:8000/bedding');
+  clientConnection.emit('joinBed', {
+    userInfo: userId,
+    productId: req.params.id,
+  });
+}
+
 async function categoryHandler(req, res) {
   let categoryID = req.params.id;
   let pageNumber = req.params.page;

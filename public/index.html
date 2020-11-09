@@ -14,6 +14,16 @@
       <a id="fbOauth" href="/auth/facebook">Facebook Login</a>
     </main>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="./index_static.js"></script>
+    <script>
+      var socket = io('/bedding');
+      const user_id = document.cookie.split(' ')[1].split('=')[1];
+      socket.emit('join', user_id);
+      socket.on('joinProductBid', (payload) => {
+        console.log();
+        socket.emit('join', payload);
+      });
+    </script>
   </body>
 </html>

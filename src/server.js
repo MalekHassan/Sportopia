@@ -32,6 +32,15 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
+// Socket
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+const beddingNameSpace = io.of('/bedding');
+beddingNameSpace.on('connection', (socket) => {
+  console.log('welcome', socket.id);
+  require('./bedding');
+});
+
 // Routes
 app.use('/', signing);
 app.use('/seller', sellerProd);
@@ -46,10 +55,11 @@ app.use(serverError);
 
 // Exporting the server
 module.exports = {
-  server: app,
+  server: http,
   start: (port) => {
-    app.listen(port, () => {
+    http.listen(port, () => {
       console.log('Working On', port);
     });
   },
+  io: beddingNameSpace,
 };
