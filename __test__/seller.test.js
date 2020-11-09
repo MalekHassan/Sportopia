@@ -401,7 +401,7 @@ describe('Buyer Tests', () => {
       });
   });
 
-  it('The buyer can not  delete other comment  for other users ', async () => {
+  it('The buyer can not delete other comment  for other users ', async () => {
     await mockRequest
       .delete(`/buyer/delete/comment/${1000}`)
       .set('Authorization', 'Bearer ' + buyerToken)
@@ -438,4 +438,26 @@ describe('Buyer Tests', () => {
       });
   });
   // CART TESTS ENDS
+
+  // Test middle wares Begins
+  it('Only the admin can activate users response with 403', async () => {
+    await mockRequest
+      .post(`/toggle/${sellerId}`)
+      .set('Authorization', 'Bearer ' + buyerToken)
+      .then((result) => {
+        expect(result.status).toBe(403);
+        expect(result.text).toBe(`You don't have access to this page.`);
+      });
+  });
+
+  it('Only the admin can activate users response with 403', async () => {
+    await mockRequest
+      .post(`/toggle/${sellerId}`)
+      .set('Authorization', 'Bearer ' + sellerToken)
+      .then((result) => {
+        expect(result.status).toBe(403);
+        expect(result.text).toBe(`You don't have access to this page.`);
+      });
+  });
+  // Test middle wares Ends
 });
