@@ -3,6 +3,7 @@
 const { server } = require('../src/server');
 const supertest = require('supertest');
 require('dotenv').config();
+jest.spyOn(global.console, 'log');
 const mockRequest = supertest(server);
 const client = require('../src/models/pool');
 
@@ -457,6 +458,31 @@ describe('Buyer Tests', () => {
       .then((result) => {
         expect(result.status).toBe(403);
         expect(result.text).toBe(`You don't have access to this page.`);
+      });
+  });
+
+  it('should return invalid login if authorization was not send', async () => {
+    await mockRequest.post('/signin').then((result) => {
+      expect(result.status).toBe(500);
+      expect(result.text).toBe('Invalid Login');
+    });
+  });
+
+  it('should return invalid login if authorization was not send', async () => {
+    await mockRequest.get('/buyers').then((result) => {
+      expect(result.status).toBe(500);
+      expect(result.text).toBe('Invalid Login');
+    });
+  });
+
+  it('should return a message if the password/username is wrong', async () => {
+    let authData = `${buyerObj.username}:${buyerObj.password}000`;
+    await mockRequest
+      .post('/signin')
+      .auth(authData)
+      .then((result) => {
+        expect(result.status).toBe(403);
+        expect(result.text).toBe('Wrong password or user does not exist');
       });
   });
   // Test middle wares Ends
