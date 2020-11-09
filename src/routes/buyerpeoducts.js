@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 'use strict';
 const express = require('express');
 const buyerModel = require('../models/products/buyerProduct-collection');
@@ -10,15 +11,17 @@ let arrayMiddleware = [bearer, acl('buyer')];
 const router = express.Router();
 
 // Routes
-router.post('/add/comment', [...arrayMiddleware], buyerAddComment);
+router.post('/add/comment/:id', [...arrayMiddleware], buyerAddComment);
 router.put('/update/comment/:id', [...arrayMiddleware], buyerUpdateComment);
 router.patch('/patch/comment/:id', [...arrayMiddleware], buyerUpdateComment);
 router.delete('/delete/comment/:id', [...arrayMiddleware], buyerDeleteComment);
 router.get('/category/:id', [...arrayMiddleware], categoryHandler);
 
 // functions
+// Buyer_cart is passed in the request
+// the body should contain the comment
 async function buyerAddComment(req, res) {
-  let productInfo = await buyerModel.create(req.body);
+  let productInfo = await buyerModel.create(req.params.id, req.body.comment);
   if (typeof productInfo === 'string') {
     res.json({
       message: productInfo,
@@ -32,8 +35,9 @@ async function buyerAddComment(req, res) {
   });
 }
 
+// request body should contain a comment
 async function buyerUpdateComment(req, res) {
-  let productInfo = await buyerModel.update(req.body, req.params.id);
+  let productInfo = await buyerModel.update(req.body.comment, req.params.id);
   if (typeof productInfo === 'string') {
     res.status(201);
     res.json({
@@ -47,14 +51,21 @@ async function buyerUpdateComment(req, res) {
     });
   }
 }
+
 async function buyerDeleteComment(req, res) {
   let productInfo = await buyerModel.delete(req.params.id);
-  res.status(201);
-  console.log(productInfo);
-  res.json({
-    message: 'This comment has been deleted',
-    user: productInfo,
-  });
+  if (typeof productInfo === 'string') {
+    res.status(201);
+    res.json({
+      message: productInfo,
+    });
+  } else {
+    res.status(201);
+    res.json({
+      message: 'your comment has been Deleted',
+      user: productInfo,
+    });
+  }
 }
 async function categoryHandler(req, res) {
   let categoryID = req.params.id;

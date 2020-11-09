@@ -25,7 +25,7 @@ class UsersCollection {
         ? (isActivated = true)
         : (isActivated = false);
       let insertQuery =
-        'INSERT INTO users (user_name,user_password,user_role,is_activated) VALUES ($1,$2,$3,$4) Returning *';
+        'INSERT INTO users (user_name,user_password,user_role,is_activated) VALUES ($1,$2,$3,$4) Returning  u_id,user_name,is_activated,user_role';
       let safeValues = [
         user.username,
         bcrypt.hashSync(user.password, 5),
@@ -80,7 +80,6 @@ class UsersCollection {
   }
 
   async generateToken(record) {
-    console.log('recooooooooord', record);
     const token = await jwt.sign(
       {
         username: record.user_name,
@@ -119,6 +118,26 @@ class UsersCollection {
       if (this.authenticateBasic(record)) {
         return record;
       }
+    }
+  }
+
+  async sellerOBuyer(user) {
+    let selectQuery;
+    let safeValues;
+    if (user.user_role === 'seller') {
+      selectQuery = `select user_name,user_role,is_activated,id from seller inner join users on seller.u_id = users.u_id where users.u_id =$1`;
+      safeValues = [user.u_id];
+      let userDb = await client
+        .query(selectQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return userDb;
+    } else {
+      selectQuery = `select user_name,user_role,is_activated,id from buyer inner join users on buyer.u_id = users.u_id where users.u_id =$1`;
+      safeValues = [user.u_id];
+      let userDb = await client
+        .query(selectQuery, safeValues)
+        .then((result) => result.rows[0]);
+      return userDb;
     }
   }
 }

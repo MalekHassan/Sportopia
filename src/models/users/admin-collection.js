@@ -7,7 +7,7 @@ class AdminCollection {
 
   async getBuyers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `SELECT user_name,user_role,is_activated,u_id FROM users WHERE user_role='buyer' LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -16,7 +16,7 @@ class AdminCollection {
 
   async getSellers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `SELECT user_name,user_role,is_activated,u_id FROM users WHERE user_role='seller' LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,company_name,adress,telephone from seller inner join users on seller.u_id = users.u_id where users.user_role ='seller' LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -32,7 +32,7 @@ class AdminCollection {
   }
 
   async toggleComments(table, id) {
-    let updateQuery = `UPDATE ${table} set is_deleted= NOT is_deleted WHERE u_id=$1 Returning user_name,is_deleted`;
+    let updateQuery = `UPDATE ${table} set is_deleted= NOT is_deleted WHERE id=$1 Returning *`;
     let safeValues = [id];
     return await client
       .query(updateQuery, safeValues)

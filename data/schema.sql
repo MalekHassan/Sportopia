@@ -20,7 +20,9 @@ IF NOT EXISTS buyer
 (
  id SERIAL PRIMARY KEY,
     u_id integer REFERENCES users
-(u_id),
+(u_id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
     first_name VARCHAR
 (255),
     last_name VARCHAR
@@ -38,7 +40,9 @@ IF NOT EXISTS seller
 (
     id SERIAL PRIMARY KEY,
     u_id integer REFERENCES users
-(u_id),
+(u_id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
     company_name VARCHAR
 (255),
     adress VARCHAR
@@ -60,16 +64,21 @@ IF NOT EXISTS products
 (
     id SERIAL PRIMARY KEY,
     seller_id integer REFERENCES seller
-(id),
+(id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
     name VARCHAR
 (255),
-    describtion TEXT,
+    description TEXT,
     main_img TEXT,
     images text ARRAY,
     price INTEGER,
-    category_id integer REFERENCES category
-(id),
-    quaintitny INTEGER,
+    category_id integer
+REFERENCES category
+(id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
+    quantity INTEGER,
     is_deleted boolean
 );
 
@@ -78,9 +87,14 @@ IF NOT EXISTS buyer_favorite
 (
     id SERIAL PRIMARY KEY,
     u_id INTEGER REFERENCES buyer
-(id),
-     p_id INTEGER REFERENCES products
-(id),
+(id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
+     p_id INTEGER
+REFERENCES products
+(id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
     is_deleted boolean
 );
 
@@ -89,10 +103,15 @@ IF NOT EXISTS buyer_cart
 (
     id SERIAL PRIMARY KEY,
     u_id INTEGER REFERENCES buyer
-(id),
-     p_id INTEGER REFERENCES products
-(id),
-    quaintitny INTEGER,
+(id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
+     p_id INTEGER
+REFERENCES products
+(id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
+    quantity INTEGER,
     is_bought boolean
 );
 
@@ -101,8 +120,11 @@ IF NOT EXISTS buyer_comments
 (
     id SERIAL PRIMARY KEY,
     u_c_id INTEGER REFERENCES buyer_cart
-(id),
+(id) ON
+DELETE CASCADE ON
+UPDATE CASCADE,
     comment TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP
+DEFAULT CURRENT_TIMESTAMP,
     is_deleted boolean
 );

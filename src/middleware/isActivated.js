@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = async (req, res, next) => {
+  // console.log('Inside the isActivated', req.user);
   if (req.user.is_activated) {
     next();
   } else {

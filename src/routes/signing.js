@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 'use strict';
 const express = require('express');
 const userModel = require('../models/users/users-collection');
@@ -7,10 +8,11 @@ const fbOauth = require('../models/OAuth/facebook');
 
 const isActivated = require('../middleware/isActivated');
 const router = express.Router();
+let testArray = [basicAuth, isActivated];
 
 // Routes
 router.post('/signup', createNewUser);
-router.post('/signin', basicAuth, isActivated, signInHandler);
+router.post('/signin', [...testArray], signInHandler);
 router.get('/oauth', oauth, (req, res) => {
   res.status(200).json({ token_value: req.token });
 });
@@ -36,7 +38,7 @@ async function createNewUser(req, res, next) {
     res.status(201);
     // console.log(userInfo);
     res.json({
-      message: 'A new user has been added',
+      message: `A new user has been added`,
       user: userInfo,
     });
   }

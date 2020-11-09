@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 'use strict';
 const express = require('express');
 const productModel = require('../models/products/products-collection');
@@ -5,25 +6,32 @@ const productModel = require('../models/products/products-collection');
 const bearer = require('../models/middleware/bearerAuth');
 const acl = require('../models/middleware/acl');
 const isActivated = require('../middleware/isActivated');
+const isAuthoroized = require('../middleware/isAuthoroized');
 
 let arrayMiddleware = [bearer, isActivated, acl('seller')];
 
 const router = express.Router();
 
 // Routes
-router.post('/add', [...arrayMiddleware], sellerAddProd);
-router.put('/update/:id', [...arrayMiddleware], sellerUpdateProd);
-router.patch('/patch/:id', [...arrayMiddleware], sellerUpdateProd);
-router.delete('/delete/:id', [...arrayMiddleware], sellerDelete);
+router.post('/add/:id', [...arrayMiddleware], sellerAddProd);
+router.put(
+  '/update/:id',
+  [...arrayMiddleware],
+  isAuthoroized,
+  sellerUpdateProd
+);
+router.delete('/delete/:id', [...arrayMiddleware], isAuthoroized, sellerDelete);
+
+// functions
 async function sellerAddProd(req, res, next) {
-  let productInfo = await productModel.create(req.body);
+  let categoryId = req.params.id;
+  let productInfo = await productModel.create(req.body, req.user, categoryId);
   if (productInfo === 'This product is exist') {
     res.json({
       message: productInfo,
     });
   } else {
     res.status(201);
-    console.log(productInfo);
     res.json({
       message: 'A new product has been added',
       user: productInfo,
@@ -32,8 +40,8 @@ async function sellerAddProd(req, res, next) {
 }
 
 async function sellerUpdateProd(req, res) {
+  console.log('here');
   let productInfo = await productModel.update(req.body, req.params.id);
-  console.log(productInfo);
   if (productInfo) {
     res.status(201);
     res.json({
@@ -50,7 +58,6 @@ async function sellerUpdateProd(req, res) {
 async function sellerDelete(req, res) {
   let productInfo = await productModel.delete(req.params.id);
   res.status(201);
-  console.log(productInfo);
   res.json({
     message: 'This product has been deleted',
     user: productInfo,
