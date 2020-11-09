@@ -64,5 +64,13 @@ class Products {
       .query(selectQuery, safeValues)
       .then((result) => result.rows[0]);
   }
+  async getProducts(page, category) {
+    let offset = page * 10;
+    const selectQuery = `SELECT * FROM products JOIN category ON products.category_id = category.id where category.id = $2 LIMIT 10 OFFSET $1;`;
+    const safeValues = [offset, category];
+    return await client
+      .query(selectQuery, safeValues)
+      .then((result) => result.rows);
+  }
 }
 module.exports = new Products();
