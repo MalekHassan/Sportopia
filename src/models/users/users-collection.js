@@ -80,7 +80,6 @@ class UsersCollection {
   }
 
   async generateToken(record) {
-    console.log('recooooooooord', record);
     const token = await jwt.sign(
       {
         username: record.user_name,
