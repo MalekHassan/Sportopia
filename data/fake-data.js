@@ -13,6 +13,7 @@ insertProduct();
 insertBuyer();
 buyerFavorite();
 buyerCart();
+insertComment();
 function insertCategory() {
   let arrayCategory = [
     'Sports Clothing',
@@ -207,24 +208,137 @@ function buyerFavorite() {
 }
 function buyerCart() {
   let favorite = [
-    { u_id: 1, p_id: 5, quaintitny: 5, is_bought: false },
-    { u_id: 1, p_id: 6, quaintitny: 5, is_bought: false },
-    { u_id: 1, p_id: 9, quaintitny: 5, is_bought: false },
-    { u_id: 2, p_id: 17, quaintitny: 7, is_bought: false },
-    { u_id: 2, p_id: 22, quaintitny: 3, is_bought: false },
-    { u_id: 2, p_id: 19, quaintitny: 8, is_bought: false },
-    { u_id: 3, p_id: 15, quaintitny: 2, is_bought: false },
-    { u_id: 3, p_id: 33, quaintitny: 2, is_bought: false },
-    { u_id: 3, p_id: 25, quaintitny: 8, is_bought: false },
-    { u_id: 1, p_id: 15, quaintitny: 3, is_bought: false },
+    { u_id: 1, p_id: 5, quantity: 5, is_bought: false },
+    { u_id: 1, p_id: 6, quantity: 5, is_bought: false },
+    { u_id: 1, p_id: 9, quantity: 5, is_bought: false },
+    { u_id: 2, p_id: 17, quantity: 7, is_bought: false },
+    { u_id: 2, p_id: 22, quantity: 3, is_bought: false },
+    { u_id: 2, p_id: 19, quantity: 8, is_bought: true },
+    { u_id: 3, p_id: 15, quantity: 2, is_bought: true },
+    { u_id: 3, p_id: 33, quantity: 2, is_bought: true },
+    { u_id: 3, p_id: 25, quantity: 8, is_bought: true },
+    { u_id: 1, p_id: 15, quantity: 3, is_bought: true },
   ];
   favorite.forEach(async (user) => {
     let InsertQuery =
-      'INSERT INTO buyer_cart (u_id,p_id,quaintitny,is_bought) VALUES ($1,$2,$3,$4)';
-    let safeValues = [user.u_id, user.p_id, user.quaintitny, user.is_bought];
+      'INSERT INTO buyer_cart (u_id,p_id,quantity,is_bought) VALUES ($1,$2,$3,$4)';
+    let safeValues = [user.u_id, user.p_id, user.quantity, user.is_bought];
     await client.query(InsertQuery, safeValues);
   });
 }
+///////////////////////////////////////////////////
+function insertComment() {
+  let arrayComment = [
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product in cart 5',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product in cart 5',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product in cart 5',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product in cart 5',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 6,
+      comment: 'this comment for bought product in cart 6',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 6,
+      comment: 'this comment for bought product in cart 6',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 6,
+      comment: 'this comment for bought product in cart 6',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 7,
+      comment: 'this comment for bought product in cart 7',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 7,
+      comment: 'this comment for bought product in cart 7',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 7,
+      comment: 'this comment for bought product in cart 7',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 8,
+      comment: 'this comment for bought product in cart 8',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 8,
+      comment: 'this comment for bought product in cart 8',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 8,
+      comment: 'this comment for bought product in cart 8',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 9,
+      comment: 'this comment for bought product in cart 9',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 9,
+      comment: 'this comment for bought product in cart 9',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 9,
+      comment: 'this comment for bought product in cart 9',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 10,
+      comment: 'this comment for bought product in cart 10',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 10,
+      comment: 'this comment for bought product in cart 10',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 10,
+      comment: 'this comment for bought product in cart 10',
+      is_deleted: false,
+    },
+    {
+      u_c_id: 5,
+      comment: 'this comment for bought product 5',
+      is_deleted: false,
+    },
+  ];
+  arrayComment.forEach(async (item) => {
+    let InsertQuery =
+      'INSERT INTO buyer_comments (u_c_id,comment,is_deleted) VALUES ($1,$2,$3)';
+    let safeValues = [item.u_c_id, item.comment, item.is_deleted];
+    await client.query(InsertQuery, safeValues);
+  });
+  console.log('Your Comments are ready 👌'.cyan.bold);
+}
+
 function insertProduct() {
   console.log('Your Products are ready 👌'.cyan.bold);
 
@@ -232,7 +346,7 @@ function insertProduct() {
     {
       seller_id: 1,
       name: ' Darts Wall-mounted Two-sided',
-      describtion:
+      description:
         'Diameter 29.5cm Darts Target +3 Darts Wall-mounted Two-sided Dual-use Thick Foam Toy Dart Board Suit',
       main_img:
         'https://ae01.alicdn.com/kf/H3c45dbcd3e4e4862beab4969c0dc9329Y.jpg',
@@ -244,13 +358,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 5,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: ' Mini Billiard Ball Children Toy',
-      describtion:
+      description:
         '16pcs 25mm Resin Mini Billiard Ball Children Toy Small Pool Cue Balls Full Set',
       main_img:
         'https://ae01.alicdn.com/kf/Hf199f26ce21f43be9e53762e4b33213bw.jpg',
@@ -262,13 +376,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 5,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Professional Soft Tip Darts With Aluminum Shaft',
-      describtion:
+      description:
         'CyeeLife 3PCS 14g Professional Soft Tip Darts With Aluminum Shaft,Dart plastic tip set for Electronic dart board',
       main_img:
         'https://ae01.alicdn.com/kf/H54ba488ac78748468e09220bdd6c22e0W.jpg',
@@ -280,13 +394,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 5,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Portable Table Games Dice',
-      describtion:
+      description:
         '30Pcs Portable Table Games Dice 14MM Acrylic Round Corner Board Game Dice Party Gambling Game Cubes Digital Dices with Bag GYH',
       main_img:
         'https://ae01.alicdn.com/kf/Hfbc11f57490547d08db4f7a9e6f271ceG.jpg',
@@ -301,13 +415,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 5,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'Wooden Throwback',
-      describtion:
+      description:
         'ntertainment Darts Wooden Throwback V Shaped Boomerang Disc Throw Catch Outdoor Game Funny Boy Game Gift Outdoor',
       main_img:
         'https://ae01.alicdn.com/kf/Hdafaccecb06a4af3a3b51fce85c7df7dS.jpg',
@@ -320,13 +434,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 5,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: 'Self-Balancing Electric Scooters',
-      describtion:
+      description:
         '6.5 Inch Self-Balancing Electric Scooters Wheel Board Protective PVC Cover Skin Sticker Classic Hoverbaoard for Car Decoration',
       main_img: 'https://ae01.alicdn.com/kf/HTB1BAQOBNuTBuNkHFNRq6A9qpXao.jpg',
       images: [
@@ -338,13 +452,13 @@ function insertProduct() {
       ],
       price: 5,
       category_id: 6,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Gamble Skateboard Beginners ',
-      describtion:
+      description:
         "Gamble Skateboard Beginners Teenager Adult Children BOY'S and GIRL'S Brush Street Four Wheel Highway Double Snubby Industry Skat",
       main_img:
         'https://ae01.alicdn.com/kf/H58fd66fb5eb64a50b5e82fcaace85166s/Gamble-Skateboard-Beginners-Teenager-Adult-Children-BOY-S-and-GIRL-S-Brush-Street-Four-Wheel-Highway.jpg_Q90.jpg_.webp',
@@ -356,13 +470,13 @@ function insertProduct() {
       ],
       price: 49,
       category_id: 6,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Balanced Skates Double Roller',
-      describtion:
+      description:
         "Children's 4 Led Light Wheels Balanced Skates Double Roller Skate Quad Skate High Quality Safety Beginner's Skates",
       main_img:
         'https://ae01.alicdn.com/kf/H7efcc916a3eb4ec4b3cfe9178380bd05n/Children-s-4-Led-Light-Wheels-Balanced-Skates-Double-Roller-Skate-Quad-Skate-High-Quality-Safety.jpg_Q90.jpg_.webp',
@@ -373,13 +487,13 @@ function insertProduct() {
       ],
       price: 51,
       category_id: 6,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'Skates Shoes',
-      describtion:
+      description:
         'Professional Skates Shoes Fancy Single-row Roller Skates Adult Inline Skates Universal Skating Rink Skates For Men And Women',
       main_img:
         'https://ae01.alicdn.com/kf/Hf86f7ac3628f44d0b74c1f60298471baX.jpg',
@@ -390,13 +504,13 @@ function insertProduct() {
       ],
       price: 12,
       category_id: 6,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: 'Roselle Roller Skates',
-      describtion:
+      description:
         'Roselle Roller Skates Men Women Inline Skating Shoes High Quality Sliding Freestyle Skating Patins 4 Wheels Professional',
       main_img:
         'https://ae01.alicdn.com/kf/Ha765fd5aca774c999fe3ca9490b7ff63g.jpg',
@@ -408,13 +522,13 @@ function insertProduct() {
       ],
       price: 69,
       category_id: 6,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Men Golf Shoes ',
-      describtion:
+      description:
         'New Men Golf Shoes Casual Sports Sneakers Genuine Leather Outdoor Male Walking Shoe Brown Blue Eu 39-44',
       main_img:
         'https://ae01.alicdn.com/kf/H6382fac918d341e1a0afd68fc7b41f9dN/New-Men-Golf-Shoes-Casual-Sports-Sneakers-Genuine-Leather-Outdoor-Male-Walking-Shoe-Brown-Blue-Eu.jpg_Q90.jpg_.webp',
@@ -424,13 +538,13 @@ function insertProduct() {
       ],
       price: 62,
       category_id: 7,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Breathable Running Shoes ',
-      describtion:
+      description:
         'Women and Men Sneakers Breathable Running Shoes Outdoor Sport Fashion Comfortable Casual Couples Gym Shoes',
       main_img:
         'https://ae01.alicdn.com/kf/H233e8e7b2a684e0b821b43f215fd2c968/Women-and-Men-Sneakers-Breathable-Running-Shoes-Outdoor-Sport-Fashion-Comfortable-Casual-Couples-Gym-Shoes.jpg_640x640.jpg',
@@ -442,13 +556,13 @@ function insertProduct() {
       ],
       price: 14,
       category_id: 7,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'Couple Running Shoes Breathable',
-      describtion:
+      description:
         'Couple Running Shoes Breathable Outdoor Male Sports Shoes Lightweight Sneakers Women Comfortable Athletic Training Footwear',
       main_img: 'https://ae01.alicdn.com/kf/HTB19iiSN9zqK1RjSZFHq6z3CpXac.jpg',
       images: [
@@ -459,13 +573,13 @@ function insertProduct() {
       ],
       price: 14,
       category_id: 7,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: 'Non-Slip Unisex  shoes',
-      describtion:
+      description:
         'Non-Slip Unisex Light Breathable Running Shoes Wear-resistant Lace-Up Sport Shoes Mans Fashion Sneakers',
       main_img:
         'https://ae01.alicdn.com/kf/H993d87b3acdd44e0bc2756d2942d9213z.jpg',
@@ -476,13 +590,13 @@ function insertProduct() {
       ],
       price: 20,
       category_id: 7,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Original Nike Air Max 90',
-      describtion:
+      description:
         "Original Nike Air Max 90 dark blue and white Men's outdoor sports shoes jogging shoes AJ1285-403 size 36-45",
       main_img:
         'https://ae01.alicdn.com/kf/He555ead39ddd4a92929c75f60a47d1d4f.jpg',
@@ -495,13 +609,13 @@ function insertProduct() {
       ],
       price: 52,
       category_id: 7,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: ' LED Horse Harness Breastplate ',
-      describtion:
+      description:
         'Hot Sale LED Horse Harness Breastplate Nylon Webbing Night Visible Horse Riding Equipment Paardensport Racing Cheval Equitation',
       main_img:
         'https://ae01.alicdn.com/kf/Hbbfe56870cfb4d20947d9c2fedb7102ay.jpg',
@@ -514,13 +628,13 @@ function insertProduct() {
       ],
       price: 13,
       category_id: 8,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'Horse Training Grooming Tool',
-      describtion:
+      description:
         'Black Horse Neck Stretcher Horse Training Grooming Tool Equestrian Supplies',
       main_img:
         'https://ae01.alicdn.com/kf/Hca968198eda64988924269d707176e6eK.jpg',
@@ -531,13 +645,13 @@ function insertProduct() {
       ],
       price: 12,
       category_id: 8,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: 'Breathable Horse Saddle Pad',
-      describtion:
+      description:
         'Breathable Horse Saddle Pad Sweat-absorbent Equestrian Bareback Riding Pad Horse Riding Jumping Performance Equipment',
       main_img:
         'https://ae01.alicdn.com/kf/H6770337b1fad426cb964335b52d8452d0.jpg',
@@ -548,13 +662,13 @@ function insertProduct() {
       ],
       price: 27,
       category_id: 8,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Horse Riding Stirrups Flex Aluminum',
-      describtion:
+      description:
         'Horse Riding Stirrups Flex Aluminum Horse Saddle Anti-skid Horse Pedal Equestrian Safety Equipment',
       main_img:
         'https://ae01.alicdn.com/kf/H1e2c39e5ae4d44d4b22a4a9654b588c5h.jpg',
@@ -565,13 +679,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 8,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Anti Impact Cap Equestrian horse Helmet',
-      describtion:
+      description:
         'Women Men Safety Half Cover Sports Protective Anti Impact Cap Equestrian Helmet Adult Horse Riding',
       main_img:
         'https://ae01.alicdn.com/kf/HTB130aVaQT2gK0jSZPcq6AKkpXac/Women-Men-Safety-Half-Cover-Sports-Protective-Anti-Impact-Cap-Equestrian-Helmet-Adult-Horse-Riding-Guard.jpg_Q90.jpg_.webp',
@@ -581,13 +695,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 8,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: ' paddle board sup surfing',
-      describtion:
+      description:
         'Aqua Marina 2021 Monster stand up paddle board sup surfing inflatable board water sport surf',
       main_img:
         'https://ae01.alicdn.com/kf/He427af1157d44c028a40d3b64d0b8b315.jpg',
@@ -598,13 +712,13 @@ function insertProduct() {
       ],
       price: 397,
       category_id: 9,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: 'Swimming Pool Toys Sea ',
-      describtion:
+      description:
         '3pcs Kids Plants Toy Sports Swimming Pool Toys Sea Plant Shape Diving Toys Diving Swimming Training Pool for Children',
       main_img: 'https://ae01.alicdn.com/kf/HTB1nfo2a.WF3KVjSZPhq6xclXXal.jpg',
       images: [
@@ -613,13 +727,13 @@ function insertProduct() {
       ],
       price: 3,
       category_id: 9,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: ' Snorkeling Diving Mask',
-      describtion:
+      description:
         '2020new Double respirator Snorkeling Diving Mask Full Face Dry Style k Diving Equipment Silicone underwater Diving Accessories',
       main_img:
         'https://ae01.alicdn.com/kf/He417f722834f4a79b7d71429ce110b4fW.jpg',
@@ -630,13 +744,13 @@ function insertProduct() {
       ],
       price: 27,
       category_id: 9,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Earplugs Diving ',
-      describtion:
+      description:
         '1 Pair Soft Ear Plugs Swimming Silicone Waterproof Dust-Proof Earplugs Diving Water Sports Swim Swimming Anti-noise Accessories',
       main_img: 'https://ae01.alicdn.com/kf/HTB1rD80dQxz61VjSZFtq6yDSVXaC.jpg',
       images: [
@@ -646,13 +760,13 @@ function insertProduct() {
       ],
       price: 1,
       category_id: 9,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'Waterproof Pouch Swimming Beach Skiing Dry Bag case',
-      describtion:
+      description:
         '6 inch Summer Diving Bag Waterproof Pouch Swimming Beach Skiing Dry Bag Case Water Sports Bags Cover Holder for Phone Wallet',
       main_img: 'https://ae01.alicdn.com/kf/HTB1RntAOgHqK1RjSZFEq6AGMXXaM.jpg',
       images: [
@@ -662,13 +776,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 9,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'ROCKBROS Winter Sports Thermal Face Mask ',
-      describtion:
+      description:
         'New with tags: A brand-new, unused, and unworn item (including handmade items) in the original packaging',
       main_img: 'https://i.ebayimg.com/images/g/kJMAAOSw3ZRfYwgZ/s-l300.jpg',
       images: [
@@ -678,13 +792,13 @@ function insertProduct() {
       ],
       price: 15,
       category_id: 1,
-      quaintitny: 50,
+      quantity: 50,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'Gel Half Finger Gloves',
-      describtion:
+      description:
         'Sports Racing Cycling Motorcycle MTB Bike Bicycle Gel Half Finger Gloves',
       main_img: 'https://i.ebayimg.com/images/g/VuYAAOSwOKtfftiT/s-l300.jpg',
       images: [
@@ -695,13 +809,13 @@ function insertProduct() {
       ],
       price: 30,
       category_id: 1,
-      quaintitny: 80,
+      quantity: 80,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'Pyjama PJ',
-      describtion:
+      description:
         'Mens Liverpool Football Club Long Pyjamas Premier League PJs LFC Pyjama PJ Grey',
       main_img: 'https://i.ebayimg.com/images/g/~c0AAOSw5R5dLJJh/s-l500.jpg',
       images: [
@@ -711,13 +825,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 1,
-      quaintitny: 25,
+      quantity: 25,
       is_deleted: false,
     },
     {
       seller_id: 1,
       name: 'Premier League PJs LFC Pyjama PJ',
-      describtion:
+      description:
         'Mens Liverpool Football Club Long Pyjamas Premier League PJs LFC Pyjama PJ Red',
       main_img: 'https://i.ebayimg.com/images/g/n-gAAOSw~wtdLJIR/s-l300.jpg',
       images: [
@@ -728,13 +842,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 1,
-      quaintitny: 25,
+      quantity: 25,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: 'Tents Camping',
-      describtion:
+      description:
         'Outdoor 3-4 Person Waterproof Instant Automatic Pop Up Tents Camping Hot Sell',
       main_img: 'https://i.ebayimg.com/images/g/N6wAAOSw6NNfhRmb/s-l500.png',
       images: [
@@ -745,13 +859,13 @@ function insertProduct() {
       ],
       price: 90,
       category_id: 2,
-      quaintitny: 20,
+      quantity: 20,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: 'Camping Bag ',
-      describtion:
+      description:
         '55L Outdoor Military Molle Tactical Backpack Rucksack Camping Bag Travel Hiking',
       main_img: 'https://i.ebayimg.com/images/g/uFYAAOSwGpxfKvcA/s-l300.jpg',
       images: [
@@ -762,13 +876,13 @@ function insertProduct() {
       ],
       price: 60,
       category_id: 2,
-      quaintitny: 100,
+      quantity: 100,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: 'Fishing Hiking',
-      describtion:
+      description:
         'Mini Survival Tin Kit Outdoor Camping Hiking Fishing Hunting Military EDC SHTF',
       main_img: 'https://i.ebayimg.com/images/g/vnQAAOSwXRhcNRqa/s-l300.jpg',
       images: [
@@ -778,13 +892,13 @@ function insertProduct() {
       ],
       price: 25,
       category_id: 2,
-      quaintitny: 10,
+      quantity: 10,
       is_deleted: false,
     },
     {
       seller_id: 2,
       name: '20/30KG Dumbells',
-      describtion:
+      description:
         '20/30KG Dumbells Pair Gym Weights Barbell Dumbbell Body Building Free Weight Set',
       main_img: 'https://i.ebayimg.com/images/g/EiEAAOSw3t5fGvY-/s-l300.jpg',
       images: [
@@ -795,13 +909,13 @@ function insertProduct() {
       ],
       price: 20,
       category_id: 3,
-      quaintitny: 50,
+      quantity: 50,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Equipment Box ',
-      describtion:
+      description:
         '13 in 1 SOS Kit Outdoor Emergency Equipment Box For Camping Hiking Survival Gear',
       main_img: 'https://i.ebayimg.com/images/g/2cwAAOSw2NVfjU6n/s-l500.jpg',
       images: [
@@ -812,13 +926,13 @@ function insertProduct() {
       ],
       price: 15,
       category_id: 2,
-      quaintitny: 45,
+      quantity: 45,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Bicycle Light Holder',
-      describtion:
+      description:
         'Bicycle Light Mount Holder Sports Accessories Bracket Mount Holder Torch Bracket',
       main_img: 'https://i.ebayimg.com/images/g/-HMAAOSwp6ZffyeE/s-l300.png',
       images: [
@@ -829,13 +943,13 @@ function insertProduct() {
       ],
       price: 10,
       category_id: 4,
-      quaintitny: 15,
+      quantity: 15,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Bicycle Phone Case',
-      describtion:
+      description:
         '360° Bicycle Motor Bike Waterproof Phone Case Mount NEW Holder HOT T3M1',
       main_img: 'https://i.ebayimg.com/images/g/CDcAAOSwuYFfFyBT/s-l300.jpg',
       images: [
@@ -846,13 +960,13 @@ function insertProduct() {
       ],
       price: 13,
       category_id: 4,
-      quaintitny: 20,
+      quantity: 20,
       is_deleted: false,
     },
     {
       seller_id: 3,
       name: 'Underwater Scooter',
-      describtion:
+      description:
         'Smart Underwater Scooter Drones Water Actions Camera Waterproof Sports Swimming',
       main_img: 'https://i.ebayimg.com/images/g/pVMAAOSwff1fp1fp/s-l300.jpg',
       images: [
@@ -863,13 +977,13 @@ function insertProduct() {
       ],
       price: 500,
       category_id: 9,
-      quaintitny: 5,
+      quantity: 5,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Swim Ring',
-      describtion:
+      description:
         'Swimming Float Non Inflatable Swim Trainer Pool Float with Canopy Swim Ring',
       main_img: 'https://i.ebayimg.com/images/g/dTsAAOSwn0Nez7Wx/s-l300.jpg',
       images: [
@@ -880,13 +994,13 @@ function insertProduct() {
       ],
       price: 35,
       category_id: 9,
-      quaintitny: 56,
+      quantity: 56,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Skateboard',
-      describtion:
+      description:
         "22'' LED Skateboard Flashing Wheel Outdoor Street Skate Board For Children Kids",
       main_img: 'https://i.ebayimg.com/images/g/VcoAAOSwSbRfj9Oc/s-l300.jpg',
       images: [
@@ -897,13 +1011,13 @@ function insertProduct() {
       ],
       price: 20,
       category_id: 6,
-      quaintitny: 30,
+      quantity: 30,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Skateboard',
-      describtion:
+      description:
         'XOOTZ 17" Children & Kids Mini Skateboard, Double Kick Maple Fun for Beginners',
       main_img: 'https://i.ebayimg.com/images/g/iZsAAOSwOjtfWg5O/s-l300.jpg',
       images: [
@@ -915,13 +1029,13 @@ function insertProduct() {
       ],
       price: 30,
       category_id: 6,
-      quaintitny: 20,
+      quantity: 20,
       is_deleted: false,
     },
     {
       seller_id: 4,
       name: 'Skateboard',
-      describtion:
+      description:
         "22'' Flashing LED Skateboard Complete Street Long Board Kids Desk Cruiser",
       main_img: 'https://i.ebayimg.com/images/g/oUAAAOSwR09fh8Ci/s-l300.jpg',
       images: [
@@ -932,22 +1046,22 @@ function insertProduct() {
       ],
       price: 34,
       category_id: 6,
-      quaintitny: 25,
+      quantity: 25,
       is_deleted: false,
     },
   ];
   products.forEach(async (item) => {
     let InsertQuery =
-      'INSERT INTO products (seller_id,name,describtion,main_img,images,price,category_id,quaintitny,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)';
+      'INSERT INTO products (seller_id,name,description,main_img,images,price,category_id,quantity,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)';
     let safeValues = [
       item.seller_id,
       item.name,
-      item.describtion,
+      item.description,
       item.main_img,
       item.images,
       item.price,
       item.category_id,
-      item.quaintitny,
+      item.quantity,
       item.is_deleted,
     ];
     await client.query(InsertQuery, safeValues);
