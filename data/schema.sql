@@ -111,7 +111,7 @@ REFERENCES products
 (id) ON
 DELETE CASCADE ON
 UPDATE CASCADE,
-    quaintitny INTEGER,
+    quantity INTEGER,
     is_bought boolean
 );
 
