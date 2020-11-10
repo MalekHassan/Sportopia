@@ -4,10 +4,18 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const ejs = require('ejs');
+const paypal = require('paypal-rest-sdk');
 const app = express();
 const ejs = require('ejs');
 const passport = require('../src/models/OAuth/facebook');
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 // Rotes Require
+app.use(express.urlencoded({ extended: true }));
+const PayPalPayment = require('./routes/paypal');
+const passport = require('../src/models/OAuth/facebook');
 const signing = require('./routes/signing');
 const sellerProd = require('./routes/sellerproducts');
 const buyerProd = require('./routes/buyerpeoducts');
@@ -19,6 +27,7 @@ const notExist = require('./models/middleware/404');
 const serverError = require('./models/middleware/500');
 
 // Middleware
+app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 app.use(express.json());
@@ -52,6 +61,8 @@ app.use('/cart', cartProducts);
 app.use('/favorite', favoriteProducts);
 app.use('/', adminRoute);
 app.use('/bidding', beddingRoute);
+app.use('/paypal', PayPalPayment);
+
 
 //Error middleware
 app.use('*', notExist);

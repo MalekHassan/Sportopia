@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>PayPal Node App</title>
+  </head>
+  <%=console.log(data)%>
+  <body>
+    <h1><%=data.name%></h1>
+    <img src="<%=data.main_img%>" alt="" />
+    <h2><%=data.description%></h2>
+    <%data.images.forEach(pro=>{%>
+    <img style="height: 150px; width: 150px" src="<%=pro%>" alt="" />
+    <%})%>
+    <h3><%=data.price%>$</h3>
+    <h2>You bought this item successfully</h2>
+    <form action="/paypal/allproduct" method="GET">
+      <input type="submit" value="go back to all products" />
+    </form>
+  </body>
+</html>
