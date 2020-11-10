@@ -6,18 +6,12 @@ var message = document.getElementById('message'),
   feedback = document.getElementById('feedback');
 
 let products;
-let array = document.URL.split('/');
-console.log(array[array.length - 1]);
 
 const user_id = document.cookie.split('=')[1];
-let sendObj = {
-  user: user_id,
-  productId: array[array.length - 1],
-};
-socket.emit('join', sendObj);
-// socket.on('joinBidRoom', (payload) => {
-//   socket.emit('join', payload);
-// });
+socket.emit('join', user_id);
+socket.on('joinBidRoom', (payload) => {
+  socket.emit('join', payload);
+});
 socket.on('username', (username) => {
   handle.value = username;
 });
@@ -44,6 +38,6 @@ socket.on('typing', function (data) {
 });
 
 socket.on('joinBidding', (payload) => {
-  console.log('inside bid.js', payload);
-  socket.emit('join', payload);
+  console.log(payload);
+  socket.emit('joinEvent', payload);
 });

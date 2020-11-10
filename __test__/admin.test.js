@@ -61,7 +61,7 @@ describe('Admin Tests', () => {
       .set('Authorization', 'Bearer ' + adminToken)
       .then((result) => {
         expect(result.body.pageNumber).toBe(1);
-        expect(result.body.count).toBe(2);
+        expect(result.body.count).toBe(3);
         expect(result.body.result).toBeDefined();
       });
   });
@@ -72,7 +72,7 @@ describe('Admin Tests', () => {
       .set('Authorization', 'Bearer ' + adminToken)
       .then((result) => {
         expect(result.body.pageNumber).toBe(1);
-        expect(result.body.count).toBe(2);
+        expect(result.body.count).toBe(4);
         expect(result.body.result).toBeDefined();
       });
   });
@@ -82,7 +82,7 @@ describe('Admin Tests', () => {
       .set('Authorization', 'Bearer ' + adminToken)
       .then((result) => {
         console.log('deactive buyers ', result.body);
-        expect(result.body.count).toBe(1);
+        expect(result.body.count).toBe(0);
         expect(result.body.result).toBeDefined();
       });
   });
@@ -93,7 +93,7 @@ describe('Admin Tests', () => {
       .set('Authorization', 'Bearer ' + adminToken)
       .then((result) => {
         expect(result.body.pageNumber).toBe(1);
-        expect(result.body.count).toBe(2);
+        expect(result.body.count).toBe(0);
         expect(result.body.result).toBeDefined();
       });
   });
@@ -113,7 +113,7 @@ describe('Admin Tests', () => {
       .set('Authorization', 'Bearer ' + adminToken)
       .then((result) => {
         expect(result.body.pageNumber).toBe(1);
-        expect(result.body.count).toBe(3);
+        expect(result.body.count).toBe(0);
         expect(result.body.result).toBeDefined();
       });
   });

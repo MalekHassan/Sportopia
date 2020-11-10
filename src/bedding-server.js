@@ -7,22 +7,23 @@ const BIDDING_ROOM = process.env.BIDDING_ROOM;
 const bedding = server.io;
 
 bedding.on('connection', (socket) => {
-  socket.on('joinBed', (payload) => {
-    if (payload.userInfo) {
-      console.log('inside the bedding', payload.userInfo.user_name);
-      console.log('inside the bedding', payload.userInfo.u_id);
-      bedding.emit('joinBidRoom', BIDDING_ROOM);
-    } else {
-      console.log('you are not registered');
-    }
-  });
-  socket.on('join', async (user_id) => {
-    let userInfo = await getUser(user_id);
+  // socket.on('joinBed', (payload) => {
+  //   if (payload.userInfo) {
+  //     console.log('inside the bedding', payload.userInfo.user_name);
+  //     console.log('inside the bedding', payload.userInfo.u_id);
+  //     bedding.emit('joinBidRoom', BIDDING_ROOM);
+  //   } else {
+  //     console.log('you are not registered');
+  //   }
+  // });
+  socket.on('join', async (payload) => {
+    console.log('inside server.js', payload);
+    let userInfo = await getUser(payload.user);
     if (userInfo) {
-      socket.join(BIDDING_ROOM);
+      socket.join(payload.productId);
       console.log(userInfo.user_name, ' joined ', BIDDING_ROOM);
       socket.emit('username', userInfo.user_name);
-      console.log(bedding.adapter.rooms[BIDDING_ROOM]);
+      console.log(bedding.adapter.rooms);
     } else {
       console.log('you are not registered');
     }
@@ -37,7 +38,16 @@ bedding.on('connection', (socket) => {
   socket.on('typing', function (data) {
     socket.broadcast.emit('typing', data);
   });
+  // Bidding Rooms
+  // socket.on('joinBidding', (payload) => {
+  //   console.log(payload);
+  //   bedding.emit('joinBidding', payload);
+  // });
 
+  // socket.on('joinEvent', (payload) => {
+  //   console.log(socket.id, payload);
+  //   socket.join(payload);
+  // });
   async function getUser(userId) {
     userId = parseInt(userId);
     let userRole = await client

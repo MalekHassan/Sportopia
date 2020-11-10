@@ -9,24 +9,31 @@ const client = require('../models/pool');
 
 // routes
 
+// This route only for products
+let clientConnection;
 router.get('/', async (req, res) => {
-  const userId = parseInt(req.headers.cookie.split(' ')[1].split('=')[1]);
+  const userId = parseInt(req.cookies.user);
   if (userId) {
     let userDb = await getUser(userId);
     if (userDb) {
-      const clientConnection = ioClient.connect(
-        'http://localhost:8000/bedding'
-      );
-      clientConnection.emit('joinBed', {
-        userInfo: userDb,
-      });
-      res.render('bidding');
+      let allProducts = await getProducts();
+      res.render('bidding', { products: allProducts });
     } else {
       res.render('sorry');
     }
   } else {
     res.render('sorry');
   }
+});
+
+router.get('/:id', async (req, res) => {
+  res.render('bidding-room');
+  console.log(req.cookies);
+  clientConnection = ioClient.connect('http://localhost:8000/bedding');
+  clientConnection.emit('joinBidding', {
+    user: req.cookies.user,
+    productId: req.params.id,
+  });
 });
 
 async function getUser(userId) {
