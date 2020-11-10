@@ -43,6 +43,9 @@ async function payment(req, res) {
     let deleteQuery = `update products set is_deleted='true' where id=$1 RETURNING *;`;
     let safeValues = [req.params.id];
     await client.query(deleteQuery, safeValues);
+    let updateQuery = `UPDATE products SET quantity=$1 WHERE id=$2 RETURNING *;`;
+    safeValue = [leftItems, req.params.id];
+    await client.query(updateQuery, safeValue);
   } else {
     let updateQuery = `UPDATE products SET quantity=$1 WHERE id=$2 RETURNING *;`;
     safeValue = [leftItems, req.params.id];
