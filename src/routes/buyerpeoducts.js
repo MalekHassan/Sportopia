@@ -11,7 +11,7 @@ let arrayMiddleware = [bearer, acl('buyer')];
 const router = express.Router();
 
 // Routes
-router.get('/joinbidd/:id', joinBiddingRoom);
+// router.get('/joinbidd/:id', joinBiddingRoom);
 router.post('/add/comment/:id', [...arrayMiddleware], buyerAddComment);
 router.put('/update/comment/:id', [...arrayMiddleware], buyerUpdateComment);
 router.patch('/patch/comment/:id', [...arrayMiddleware], buyerUpdateComment);
@@ -69,17 +69,17 @@ async function buyerDeleteComment(req, res) {
   }
 }
 
-const ioClient = require('socket.io-client');
+// const ioClient = require('socket.io-client');
 
 // Send user form request, and the product id form routes
-async function joinBiddingRoom(req, res) {
-  const userId = req.headers.cookie.split('=')[1];
-  const clientConnection = ioClient.connect('http://localhost:8000/bedding');
-  clientConnection.emit('joinBed', {
-    userInfo: userId,
-    productId: req.params.id,
-  });
-}
+// async function joinBiddingRoom(req, res) {
+//   const userId = req.headers.cookie.split('=')[1];
+//   const clientConnection = ioClient.connect('http://localhost:8000/bedding');
+//   clientConnection.emit('joinBed', {
+//     userInfo: userId,
+//     productId: req.params.id,
+//   });
+// }
 
 async function categoryHandler(req, res) {
   let categoryID = req.params.id;

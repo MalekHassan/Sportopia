@@ -5,6 +5,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
+const ejs = require('ejs');
 const passport = require('../src/models/OAuth/facebook');
 // Rotes Require
 const signing = require('./routes/signing');
@@ -13,11 +14,13 @@ const buyerProd = require('./routes/buyerpeoducts');
 const cartProducts = require('./routes/cartproducts');
 const favoriteProducts = require('./routes/favoriteproducts');
 const adminRoute = require('./routes/admin');
+const beddingRoute = require('./routes/bedding');
 const notExist = require('./models/middleware/404');
 const serverError = require('./models/middleware/500');
 
 // Middleware
 app.use(express.static('./public'));
+app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
@@ -38,7 +41,7 @@ const io = require('socket.io')(http);
 const beddingNameSpace = io.of('/bedding');
 beddingNameSpace.on('connection', (socket) => {
   console.log('welcome', socket.id);
-  require('./bedding');
+  require('./bedding-server');
 });
 
 // Routes
@@ -48,6 +51,7 @@ app.use('/buyer', buyerProd);
 app.use('/cart', cartProducts);
 app.use('/favorite', favoriteProducts);
 app.use('/', adminRoute);
+app.use('/bidding', beddingRoute);
 
 //Error middleware
 app.use('*', notExist);
