@@ -26,6 +26,16 @@ bedding.on('connection', (socket) => {
       console.log('you are not registered');
     }
   });
+  // Handle chat event
+  socket.on('chat', function (data) {
+    // console.log(data);
+    bedding.emit('chat', data);
+  });
+
+  // Handle typing event
+  socket.on('typing', function (data) {
+    socket.broadcast.emit('typing', data);
+  });
 });
 
 async function getUser(userId) {
