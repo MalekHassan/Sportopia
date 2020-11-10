@@ -108,6 +108,21 @@ class AdminCollection {
       .query(updateQuery, safeValues)
       .then((result) => result.rows[0]);
   }
+
+  async insertCategory(name) {
+    let categories = await client
+      .query('select category_name from category')
+      .then((result) => result.rows.map((item) => item.category_name));
+    if (!categories.includes(name)) {
+      let insetQuery =
+        'INSERT INTO category (category_name) VALUES ($1) Returning *';
+      return await client
+        .query(insetQuery, [name])
+        .then((result) => result.rows[0]);
+    } else {
+      return 'This Category already existed';
+    }
+  }
 }
 
 module.exports = new AdminCollection();

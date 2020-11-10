@@ -33,7 +33,7 @@ class Products {
           .then((result) => result.rows[0]);
         return productInfo;
       } else {
-        return 'this comment has been deleted';
+        return 'this comment has been updated';
       }
     } else {
       return 'There in no Comment there';

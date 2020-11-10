@@ -6,15 +6,15 @@ const client = require('../pool');
 class Cart {
   async insertToCart(productId, userId) {
     const insertQuery =
-      'INSERT INTO buyer_cart (p_id,u_id ,quaintitny,is_bought) VALUES ($1,$2,$3,$4) RETURNING *';
+      'INSERT INTO buyer_cart (p_id,u_id ,quantity,is_bought) VALUES ($1,$2,$3,$4) RETURNING *';
     let safeValues = [productId, userId, 1, false];
     let productInfo = await client.query(insertQuery, safeValues);
     return productInfo.rows[0];
   }
-  async buyNow(productId, userId, quaintitny) {
+  async buyNow(productId, userId, quantity) {
     const insertQuery =
-      'INSERT INTO buyer_cart (p_id,u_id ,quaintitny,is_bought) VALUES ($1,$2,$3,$4) RETURNING *';
-    let safeValues = [parseInt(productId), userId, quaintitny, true];
+      'INSERT INTO buyer_cart (p_id,u_id ,quantity,is_bought) VALUES ($1,$2,$3,$4) RETURNING *';
+    let safeValues = [parseInt(productId), userId, quantity, true];
     let productInfo = await client.query(insertQuery, safeValues);
     return productInfo.rows[0];
   }

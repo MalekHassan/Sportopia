@@ -25,6 +25,9 @@ router.delete('/delete/:id', [...arrayMiddleware], isAuthoroized, sellerDelete);
 // functions
 async function sellerAddProd(req, res, next) {
   let categoryId = req.params.id;
+  // console.log('this is the category id', categoryId);
+  // console.log(req.user);
+  // console.log(req.body);
   let productInfo = await productModel.create(req.body, req.user, categoryId);
   if (productInfo === 'This product is exist') {
     res.json({
@@ -34,19 +37,18 @@ async function sellerAddProd(req, res, next) {
     res.status(201);
     res.json({
       message: 'A new product has been added',
-      user: productInfo,
+      product: productInfo,
     });
   }
 }
 
 async function sellerUpdateProd(req, res) {
-  console.log('here');
   let productInfo = await productModel.update(req.body, req.params.id);
   if (productInfo) {
-    res.status(201);
+    res.status(200);
     res.json({
       message: 'your product has been updated',
-      user: productInfo,
+      product: productInfo,
     });
   } else {
     res.status(400);
@@ -57,10 +59,10 @@ async function sellerUpdateProd(req, res) {
 }
 async function sellerDelete(req, res) {
   let productInfo = await productModel.delete(req.params.id);
-  res.status(201);
+  res.status(200);
   res.json({
     message: 'This product has been deleted',
-    user: productInfo,
+    product: productInfo,
   });
 }
 module.exports = router;
