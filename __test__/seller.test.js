@@ -50,6 +50,14 @@ describe('Buyer Tests', () => {
     price: 55,
     quantity: 100,
   };
+  let productObj3 = {
+    name: 'product3',
+    description: 'Just a test description',
+    main_img: 'test for the images',
+    images: ['test1', 'test2', 'test3'],
+    price: 55,
+    quantity: 100,
+  };
 
   // Test Variables
   let adminToken;
@@ -486,4 +494,26 @@ describe('Buyer Tests', () => {
       });
   });
   // Test middle wares Ends
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////paying method test////////////////////////////////////////////////////////////////
+  it('checking if the payment working', async () => {
+    await mockRequest
+      .post(`/seller/add/${categoryId}`)
+      .set('Authorization', 'Bearer ' + sellerToken)
+      .send(productObj3)
+      .then(async (result) => {
+        let productId = result.body.product.id;
+        await mockRequest
+          .post(`/paypal/paypalpayment/${productId}`)
+          .send({ many: 5 })
+          .then(async (results) => {
+            let sql = `select quantity from products where id=$1`;
+            let safeValue = [productId];
+            let numberOfProduct = await client.query(sql, safeValue);
+            expect(numberOfProduct.rows[0].quantity).toEqual(95);
+          });
+      });
+  });
 });
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////paying method test////////////////////////////////////////////////////////////////
