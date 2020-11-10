@@ -93,6 +93,11 @@ class AdminCollection {
       .query(selectQuery, safeValues)
       .then((result) => result.rows);
   }
+  async getfav(productID) {
+    const selectQuery = `COUNT * FROM buyer_favorite where p_id = $1`;
+    const safeValues = [productID];
+    return await client.query(selectQuery, safeValues).then((result) => result);
+  }
   async toggleUser(id) {
     let updateQuery = `UPDATE users set is_activated= NOT is_activated WHERE u_id=$1 Returning user_name,is_activated`;
     let safeValues = [id];

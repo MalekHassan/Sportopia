@@ -43,6 +43,7 @@ router.get('/boughtproducts', [...allMiddleware], getBoughtProducts);
 router.get('/boughtproducts/:page', [...allMiddleware], getBoughtProducts);
 router.get('/incartproducts', [...allMiddleware], getInCartProducts);
 router.get('/incartproducts/:page', [...allMiddleware], getInCartProducts);
+router.get('/favoriteproduct/:id', [...allMiddleware], getFavoriteProduct);
 
 router.post('/toggle/:id', [...allMiddleware], activateUser);
 router.post(
@@ -245,6 +246,14 @@ async function getActiveProducts(req, res, next) {
     result: users,
   });
 }
+async function getFavoriteProduct(req, res, next) {
+  let productID = req.params.id;
+  let productFavorites = await adminCollection.getfav(productID);
+  res.status(200);
+  res.json({
+    message: `The product has ${productFavorites} times favorite`,
+  });
+}
 
 async function toggleCommentsProducts(req, res, next) {
   const table = req.table;
@@ -274,4 +283,5 @@ async function addCategory(req, res, next) {
     });
   }
 }
+
 module.exports = router;
