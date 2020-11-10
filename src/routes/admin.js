@@ -249,9 +249,11 @@ async function getActiveProducts(req, res, next) {
 async function getFavoriteProduct(req, res, next) {
   let productID = req.params.id;
   let productFavorites = await adminCollection.getfav(productID);
+  console.log(productFavorites);
   res.status(200);
   res.json({
-    message: `The product has ${productFavorites} times favorite`,
+    message: `This product has been favorited this many times:`,
+    count: productFavorites,
   });
 }
 

@@ -109,28 +109,6 @@ describe('Buyer Tests', () => {
         expect(adminRes.body.token).toBeDefined();
       });
   });
-  it('Then admin can see all the buyers each page contain 10 results', async () => {
-    await mockRequest
-      .get('/buyers')
-      .set('Authorization', 'Bearer ' + adminToken)
-      .then((result) => {
-        expect(result.body.pageNumber).toBe(1);
-        expect(result.body.count).toBe(1);
-        expect(result.body.result).toBeDefined();
-      });
-  });
-
-  it('Then admin can see all the sellers each page contain 10 results', async () => {
-    await mockRequest
-      .get('/sellers')
-      .set('Authorization', 'Bearer ' + adminToken)
-      .then((result) => {
-        expect(result.body.pageNumber).toBe(1);
-        expect(result.body.count).toBe(1);
-        expect(result.body.result).toBeDefined();
-      });
-  });
-
   it('The admin can add a new category', async () => {
     await mockRequest
       .post('/category')
