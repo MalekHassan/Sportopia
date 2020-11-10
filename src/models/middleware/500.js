@@ -1,7 +1,9 @@
 'use strict';
 
-module.exports = (req, res, next) => {
-  res.status(500);
-  res.statusMessage = 'Server Error';
-  res.json({ error: 'Server Error' });
+module.exports = (err, req, res, next) => {
+  try {
+    res.status(500).send(err);
+  } catch (e) {
+    res.statusCode = 500;
+  }
 };

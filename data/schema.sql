@@ -79,7 +79,9 @@ REFERENCES category
 DELETE CASCADE ON
 UPDATE CASCADE,
     quantity INTEGER,
-    is_deleted boolean
+    is_deleted boolean,
+    is_bid boolean,
+    is_finished boolean
 );
 
 CREATE TABLE
@@ -111,7 +113,7 @@ REFERENCES products
 (id) ON
 DELETE CASCADE ON
 UPDATE CASCADE,
-    quaintitny INTEGER,
+    quantity INTEGER,
     is_bought boolean
 );
 

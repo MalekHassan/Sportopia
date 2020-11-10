@@ -44,6 +44,7 @@ async function createNewUser(req, res, next) {
   }
 }
 async function signInHandler(req, res, next) {
+  res.cookie('user', req.user.u_id);
   res.json({ token: req.token });
 }
 

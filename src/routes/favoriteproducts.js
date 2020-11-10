@@ -23,8 +23,8 @@ async function favoriteAddProd(req, res) {
   } else {
     res.status(201);
     res.json({
-      message: 'A new product has been added to the cart',
-      user: productInfo,
+      message: 'A new product has been added to your Favorite',
+      product: productInfo,
     });
   }
 }
@@ -32,10 +32,10 @@ async function favoriteAddProd(req, res) {
 // To delete products from the cart  (table : buyer_cart)
 async function favoriteDeleteProd(req, res) {
   let productInfo = await favModel.delete(req.params.id);
-  res.status(201);
+  res.status(200);
   res.json({
     message: 'A product has been deleted from You Favorite',
-    user: productInfo,
+    product: productInfo,
   });
 }
 module.exports = router;

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/chat.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%products.forEach(item=>{%>
+    <h1><%=item.name%></h1>
+    <%if(!item.is_deleted){%>
+    <a
+      href="bidding/<%=item.id%>
+"
+      ><img src="<%=item.main_img%>" alt="" />
+    </a>
+    <h2><%=item.description%></h2>
+    <%item.images.forEach(pro=>{%>
+    <img style="height: 150px; width: 150px" src="<%=pro%>" alt="" />
+    <%})%>
+    <h3>items left : <%=item.quantity%></h3>
+    <h3><%=item.price%>$</h3>
+
+    <%}%> <%})%>
+  </body>
+</html>

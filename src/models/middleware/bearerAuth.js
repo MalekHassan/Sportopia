@@ -4,14 +4,12 @@ module.exports = (req, res, next) => {
     next('Invalid Login');
   } else {
     const token = req.headers.authorization.split(' ').pop();
-    console.log('__TOKEN__', token);
     users
       .authenticateToken(token)
       .then(async (validUser) => {
         if (validUser.user_role !== 'admin') {
           validUser = await users.sellerOBuyer(validUser);
         }
-        console.log('VALID USER _____', validUser);
         req.user = validUser;
         next();
       })
