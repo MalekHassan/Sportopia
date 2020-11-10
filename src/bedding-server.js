@@ -8,15 +8,23 @@ const bedding = server.io;
 
 bedding.on('connection', (socket) => {
   socket.on('joinBed', (payload) => {
-    console.log('inside the bedding', payload.userInfo.user_name);
-    console.log('inside the bedding', payload.userInfo.u_id);
-    bedding.emit('joinBidRoom', BIDDING_ROOM);
+    if (payload.userInfo) {
+      console.log('inside the bedding', payload.userInfo.user_name);
+      console.log('inside the bedding', payload.userInfo.u_id);
+      bedding.emit('joinBidRoom', BIDDING_ROOM);
+    } else {
+      console.log('you are not registered');
+    }
   });
   socket.on('join', async (user_id) => {
     let userInfo = await getUser(user_id);
-    socket.join(BIDDING_ROOM);
-    console.log(userInfo.user_name, ' joined ', BIDDING_ROOM);
-    console.log(bedding.adapter.rooms[BIDDING_ROOM]);
+    if (userInfo) {
+      socket.join(BIDDING_ROOM);
+      console.log(userInfo.user_name, ' joined ', BIDDING_ROOM);
+      console.log(bedding.adapter.rooms[BIDDING_ROOM]);
+    } else {
+      console.log('you are not registered');
+    }
   });
 });
 

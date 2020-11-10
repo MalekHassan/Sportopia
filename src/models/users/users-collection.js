@@ -124,20 +124,22 @@ class UsersCollection {
   async sellerOBuyer(user) {
     let selectQuery;
     let safeValues;
-    if (user.user_role === 'seller') {
-      selectQuery = `select user_name,user_role,is_activated,id,users.u_id from seller inner join users on seller.u_id = users.u_id where users.u_id =$1`;
-      safeValues = [user.u_id];
-      let userDb = await client
-        .query(selectQuery, safeValues)
-        .then((result) => result.rows[0]);
-      return userDb;
-    } else {
-      selectQuery = `select user_name,user_role,is_activated,id,users.u_id from buyer inner join users on buyer.u_id = users.u_id where users.u_id =$1`;
-      safeValues = [user.u_id];
-      let userDb = await client
-        .query(selectQuery, safeValues)
-        .then((result) => result.rows[0]);
-      return userDb;
+    if (user) {
+      if (user.user_role === 'seller') {
+        selectQuery = `select user_name,user_role,is_activated,id,users.u_id from seller inner join users on seller.u_id = users.u_id where users.u_id =$1`;
+        safeValues = [user.u_id];
+        let userDb = await client
+          .query(selectQuery, safeValues)
+          .then((result) => result.rows[0]);
+        return userDb;
+      } else {
+        selectQuery = `select user_name,user_role,is_activated,id,users.u_id from buyer inner join users on buyer.u_id = users.u_id where users.u_id =$1`;
+        safeValues = [user.u_id];
+        let userDb = await client
+          .query(selectQuery, safeValues)
+          .then((result) => result.rows[0]);
+        return userDb;
+      }
     }
   }
 }

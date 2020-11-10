@@ -12,11 +12,17 @@ router.get('/', async (req, res) => {
   const userId = parseInt(req.headers.cookie.split(' ')[1].split('=')[1]);
   if (userId) {
     let userDb = await getUser(userId);
-    const clientConnection = ioClient.connect('http://localhost:8000/bedding');
-    clientConnection.emit('joinBed', {
-      userInfo: userDb,
-    });
-    res.render('bidding');
+    if (userDb) {
+      const clientConnection = ioClient.connect(
+        'http://localhost:8000/bedding'
+      );
+      clientConnection.emit('joinBed', {
+        userInfo: userDb,
+      });
+      res.render('bidding');
+    } else {
+      res.render('sorry');
+    }
   } else {
     res.render('sorry');
   }
