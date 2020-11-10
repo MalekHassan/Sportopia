@@ -365,6 +365,8 @@ function insertProduct() {
       category_id: 5,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -383,6 +385,8 @@ function insertProduct() {
       category_id: 5,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -401,6 +405,8 @@ function insertProduct() {
       category_id: 5,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -422,6 +428,8 @@ function insertProduct() {
       category_id: 5,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -441,6 +449,8 @@ function insertProduct() {
       category_id: 5,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -459,6 +469,8 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -477,6 +489,8 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -494,6 +508,8 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -511,6 +527,8 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -529,6 +547,8 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -545,6 +565,8 @@ function insertProduct() {
       category_id: 7,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -563,6 +585,8 @@ function insertProduct() {
       category_id: 7,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -580,6 +604,8 @@ function insertProduct() {
       category_id: 7,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -597,6 +623,8 @@ function insertProduct() {
       category_id: 7,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -616,6 +644,8 @@ function insertProduct() {
       category_id: 7,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -635,6 +665,8 @@ function insertProduct() {
       category_id: 8,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -652,6 +684,8 @@ function insertProduct() {
       category_id: 8,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -669,6 +703,8 @@ function insertProduct() {
       category_id: 8,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -686,6 +722,8 @@ function insertProduct() {
       category_id: 8,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -702,6 +740,8 @@ function insertProduct() {
       category_id: 8,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -719,6 +759,8 @@ function insertProduct() {
       category_id: 9,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -734,6 +776,8 @@ function insertProduct() {
       category_id: 9,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -751,6 +795,8 @@ function insertProduct() {
       category_id: 9,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -767,6 +813,8 @@ function insertProduct() {
       category_id: 9,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -783,6 +831,8 @@ function insertProduct() {
       category_id: 9,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -799,6 +849,8 @@ function insertProduct() {
       category_id: 1,
       quantity: 50,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -816,6 +868,8 @@ function insertProduct() {
       category_id: 1,
       quantity: 80,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -832,6 +886,8 @@ function insertProduct() {
       category_id: 1,
       quantity: 25,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 1,
@@ -849,6 +905,8 @@ function insertProduct() {
       category_id: 1,
       quantity: 25,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -866,6 +924,8 @@ function insertProduct() {
       category_id: 2,
       quantity: 20,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -883,6 +943,8 @@ function insertProduct() {
       category_id: 2,
       quantity: 100,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -899,6 +961,8 @@ function insertProduct() {
       category_id: 2,
       quantity: 10,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 2,
@@ -916,6 +980,8 @@ function insertProduct() {
       category_id: 3,
       quantity: 50,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -933,6 +999,8 @@ function insertProduct() {
       category_id: 2,
       quantity: 45,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -950,6 +1018,8 @@ function insertProduct() {
       category_id: 4,
       quantity: 15,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -967,6 +1037,8 @@ function insertProduct() {
       category_id: 4,
       quantity: 20,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 3,
@@ -984,6 +1056,8 @@ function insertProduct() {
       category_id: 9,
       quantity: 5,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -1001,6 +1075,8 @@ function insertProduct() {
       category_id: 9,
       quantity: 56,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -1018,6 +1094,8 @@ function insertProduct() {
       category_id: 6,
       quantity: 30,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -1036,6 +1114,8 @@ function insertProduct() {
       category_id: 6,
       quantity: 20,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
     {
       seller_id: 4,
@@ -1053,6 +1133,8 @@ function insertProduct() {
       category_id: 6,
       quantity: 25,
       is_deleted: false,
+      is_bid: false,
+      is_finished: false,
     },
   ];
   products.forEach(async (item) => {

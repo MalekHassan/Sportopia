@@ -79,7 +79,9 @@ REFERENCES category
 DELETE CASCADE ON
 UPDATE CASCADE,
     quantity INTEGER,
-    is_deleted boolean
+    is_deleted boolean,
+    is_bid boolean,
+    is_finished boolean
 );
 
 CREATE TABLE

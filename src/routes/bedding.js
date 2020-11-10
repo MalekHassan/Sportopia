@@ -35,4 +35,10 @@ async function getUser(userId) {
     .then((result) => result.rows[0]);
   return await userModel.sellerOBuyer(userRole);
 }
+
+async function getProducts() {
+  return await client
+    .query('select * from products where is_bid = true and is_finished = false')
+    .then((result) => result.rows);
+}
 module.exports = router;

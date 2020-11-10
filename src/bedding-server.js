@@ -21,6 +21,7 @@ bedding.on('connection', (socket) => {
     if (userInfo) {
       socket.join(BIDDING_ROOM);
       console.log(userInfo.user_name, ' joined ', BIDDING_ROOM);
+      socket.emit('username', userInfo.user_name);
       console.log(bedding.adapter.rooms[BIDDING_ROOM]);
     } else {
       console.log('you are not registered');
@@ -36,12 +37,12 @@ bedding.on('connection', (socket) => {
   socket.on('typing', function (data) {
     socket.broadcast.emit('typing', data);
   });
-});
 
-async function getUser(userId) {
-  userId = parseInt(userId);
-  let userRole = await client
-    .query('select * from users where u_id=$1', [userId])
-    .then((result) => result.rows[0]);
-  return await userModel.sellerOBuyer(userRole);
-}
+  async function getUser(userId) {
+    userId = parseInt(userId);
+    let userRole = await client
+      .query('select * from users where u_id=$1', [userId])
+      .then((result) => result.rows[0]);
+    return await userModel.sellerOBuyer(userRole);
+  }
+});

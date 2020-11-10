@@ -12,7 +12,7 @@ class Products {
       .then((data) => data.rows[0]);
     if (!productDb) {
       const insertQuery =
-        'INSERT INTO products (seller_id,name,description,main_img,images,price,category_id,quantity,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *';
+        'INSERT INTO products (seller_id,name,description,main_img,images,price,category_id,quantity,is_deleted,is_bid,is_finished) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *';
       safeValues = [
         user.id,
         product.name,
@@ -22,6 +22,8 @@ class Products {
         product.price,
         categoryId,
         product.quantity,
+        false,
+        product.id_bid ? product.id_bid : false,
         false,
       ];
       let productInfo = await client.query(insertQuery, safeValues);
