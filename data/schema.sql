@@ -81,7 +81,32 @@ UPDATE CASCADE,
     quantity INTEGER,
     is_deleted boolean,
     is_bid boolean,
-    is_finished boolean
+    is_finished boolean,
+    start_time TIMESTAMP
+DEFAULT CURRENT_TIMESTAMP,
+    end_time INTEGER
+);
+
+CREATE TABLE
+If NOT EXISTS seller_notify
+(
+    id SERIAL PRIMARY KEY,
+       s_id INTEGER REFERENCES seller
+(id) ON
+UPDATE CASCADE ON
+DELETE CASCADE,
+    p_id INTEGER
+REFERENCES products
+(id) ON
+UPDATE CASCADE ON
+DELETE CASCADE,
+    u_id INTEGER
+REFERENCES buyer
+(id) ON
+UPDATE CASCADE ON
+DELETE CASCADE,
+    created_at TIMESTAMP
+DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE
