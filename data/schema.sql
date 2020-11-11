@@ -81,7 +81,10 @@ UPDATE CASCADE,
     quantity INTEGER,
     is_deleted boolean,
     is_bid boolean,
-    is_finished boolean
+    is_finished boolean,
+    start_time TIMESTAMP
+DEFAULT CURRENT_TIMESTAMP,
+    end_time INTEGER
 );
 
 CREATE TABLE

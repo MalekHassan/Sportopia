@@ -33,12 +33,12 @@ bedding.on('connection', (socket) => {
   // Handle chat event
   socket.on('chat', function (data) {
     // console.log(data);
-    bedding.emit('chat', data);
+    bedding.to(data.productId).emit('chat', data);
   });
 
   // Handle typing event
   socket.on('typing', function (data) {
-    socket.broadcast.emit('typing', data);
+    bedding.to(data.productId).emit('typing', data.message);
   });
   // Bidding Rooms
   // socket.on('joinBidding', (payload) => {
@@ -61,6 +61,13 @@ bedding.on('connection', (socket) => {
       socket.join(payload);
       bedding.to(payload).emit('logMessage', sellerNotif);
     }
+  });
+
+  // Timer
+
+  socket.on('timer', (payload) => {
+    console.log(payload.timer);
+    bedding.to(payload.productId).emit('changeTime', payload.timer);
   });
 });
 

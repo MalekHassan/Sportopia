@@ -17,7 +17,6 @@ router.get('/', async (req, res) => {
     let userDb = await getUser(userId);
     if (userDb) {
       let allProducts = await getProducts();
-      console.log(allProducts);
       res.render('bidding', { products: allProducts });
     } else {
       res.render('sorry');
@@ -28,7 +27,9 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  res.render('bidding-room');
+  let product = await getProduct(req.params.id);
+  console.log('inside the route', product);
+  res.render('bidding-room', { product: product });
   console.log(req.cookies);
   clientConnection = ioClient.connect('http://localhost:8000/bedding');
   clientConnection.emit('joinBidding', {
@@ -50,5 +51,11 @@ async function getProducts() {
       'select * from products  where is_bid = true and is_finished = false'
     )
     .then((result) => result.rows);
+}
+
+async function getProduct(id) {
+  return await client
+    .query('select * from products where id=$1', [id])
+    .then((result) => result.rows[0]);
 }
 module.exports = router;
