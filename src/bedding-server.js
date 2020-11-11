@@ -50,6 +50,18 @@ bedding.on('connection', (socket) => {
   //   console.log(socket.id, payload);
   //   socket.join(payload);
   // });
+
+  //****  Seller events ******//
+
+  socket.on('sellerRooms', async (payload) => {
+    let user = await getUser(payload);
+    console.group(user);
+    if (user.user_role === 'seller') {
+      let sellerNotif = await getSellerNotif(user.id);
+      socket.join(payload);
+      bedding.to(payload).emit('logMessage', sellerNotif);
+    }
+  });
 });
 
 async function getUser(userId) {
@@ -74,4 +86,14 @@ async function getSellerId(productId) {
   return await client
     .query('select seller_id from products where id=$1', [productId])
     .then((result) => result.rows[0].seller_id);
+}
+
+async function getSellerNotif(sellerId) {
+  sellerId = parseInt(sellerId);
+  return await client
+    .query(
+      'select buyer.first_name,buyer.last_name,products.name,seller_notify.created_at from seller_notify inner join buyer on seller_notify.u_id = buyer.id inner join products on seller_notify.p_id = products.id where s_id=$1',
+      [sellerId]
+    )
+    .then((result) => result.rows);
 }

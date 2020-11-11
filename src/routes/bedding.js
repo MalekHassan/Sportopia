@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
     let userDb = await getUser(userId);
     if (userDb) {
       let allProducts = await getProducts();
+      console.log(allProducts);
       res.render('bidding', { products: allProducts });
     } else {
       res.render('sorry');
@@ -45,7 +46,9 @@ async function getUser(userId) {
 
 async function getProducts() {
   return await client
-    .query('select * from products where is_bid = true and is_finished = false')
+    .query(
+      'select * from products  where is_bid = true and is_finished = false'
+    )
     .then((result) => result.rows);
 }
 module.exports = router;
