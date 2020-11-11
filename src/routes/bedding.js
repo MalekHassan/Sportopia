@@ -28,9 +28,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   let product = await getProduct(req.params.id);
-  console.log('inside the route', product);
   res.render('bidding-room', { product: product });
-  console.log(req.cookies);
   clientConnection = ioClient.connect('http://localhost:8000/bedding');
   clientConnection.emit('joinBidding', {
     user: req.cookies.user,

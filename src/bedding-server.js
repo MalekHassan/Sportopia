@@ -63,11 +63,20 @@ bedding.on('connection', (socket) => {
     }
   });
 
-  // Timer
+  // price
 
-  socket.on('timer', (payload) => {
-    console.log(payload.timer);
-    bedding.to(payload.productId).emit('changeTime', payload.timer);
+  socket.on('updatePrice', async (payload) => {
+    let productId = parseInt(payload.productId);
+    let price = parseInt(payload.price);
+    await client
+      .query('update products set price=$1 where id=$2 returning price', [
+        price,
+        productId,
+      ])
+      .then((result) => {
+        price = result.rows[0];
+        bedding.to(payload.productId).emit('updatePrice', { price: price });
+      });
   });
 });
 

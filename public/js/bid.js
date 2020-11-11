@@ -59,30 +59,28 @@ socket.on('joinBidding', (payload) => {
   socket.emit('join', payload);
 });
 
-socket.on('changeTime', (payload) => {});
-
-function startTimer(duration, display) {
-  var timer = duration,
-    minutes,
-    seconds;
-  setInterval(function () {
-    minutes = parseInt(timer / 60, 10);
-    seconds = parseInt(timer % 60, 10);
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-    display.textContent = minutes + ':' + seconds;
-    if (--timer < 0) {
-      timer = duration;
-    }
-    socket.emit('timer', { timer: timer, productId: productId });
-  }, 1000);
-}
 window.onload = function () {
-  // fiveMinutes = 60 * 2;
-  // startTimer(fiveMinutes, display);
   startDate.innerHTML = startDate.innerHTML.split('GMT')[0].trim();
   let day = parseInt(startDate.innerHTML.split(' ')[2]) + 1;
   let array = startDate.innerHTML.split(' ');
   array.splice(2, 1, day.toString());
   endDate.innerHTML = array.join(' ');
+  updatePrice(price, productId);
 };
+
+// function to update the price in the data base
+
+function updatePrice(price, productId) {
+  array = document.URL.split('/');
+  productId = array[array.length - 1];
+  console.log('first Step ', price, productId);
+  socket.emit('updatePrice', { price: price.innerHTML, productId: productId });
+  setTimeout(() => {
+    updatePrice(price);
+  }, 10000);
+}
+
+socket.on('updatePrice', (payload) => {
+  console.log(payload.price.price);
+  price.innerHTML = payload.price.price;
+});
