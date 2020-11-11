@@ -15,5 +15,21 @@
     </main>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="./index_static.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io('/bedding');
+      const user_id = document.cookie.split('=')[1];
+      // first the seller log to the main page
+      socket.emit('sellerRooms', user_id);
+
+      // to see his messages
+      socket.on('logMessage', (sellerNotif) => {
+        sellerNotif.forEach((item) => {
+          console.log(
+            `${item.first_name} ${item.last_name} has entered the bedding on${item.name} on ${item.created_at}`
+          );
+        });
+      });
+    </script>
   </body>
 </html>

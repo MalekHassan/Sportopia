@@ -87,7 +87,7 @@ as we said before that we used postgress for our database, since we have a lot o
 
 so here are the relations:
 
-![ERD](./assets/ERD.png)
+![ERD](assets/ERD.PNG)
 
 ## Relations:
 
@@ -173,6 +173,13 @@ dependencies
   * prettier
   * pretty-quick
   * supertest
+## Testing Results:
+
+![Test Result](assets/Tests.PNG)
+![Test Result](assets/adminTests.PNG)
+![Test Result](assets/middleWare.PNG)
+![Test Result](assets/testResult.PNG)
+
 
 ## Sportopia Tree
 
@@ -188,59 +195,6 @@ dependencies
 ├── assets
 │   ├── DomainModeling.jpg
 │   └── ERD.png
-├── coverage
-│   ├── clover.xml
-│   ├── coverage-final.json
-│   ├── lcov-report
-│   │   ├── base.css
-│   │   ├── block-navigation.js
-│   │   ├── favicon.png
-│   │   ├── index.html
-│   │   ├── prettify.css
-│   │   ├── prettify.js
-│   │   ├── sort-arrow-sprite.png
-│   │   ├── sorter.js
-│   │   └── src
-│   │       ├── index.html
-│   │       ├── middleware
-│   │       │   ├── comment_n_product.js.html
-│   │       │   ├── index.html
-│   │       │   ├── isActivated.js.html
-│   │       │   └── isAuthoroized.js.html
-│   │       ├── models
-│   │       │   ├── OAuth
-│   │       │   │   ├── facebook.js.html
-│   │       │   │   ├── google.js.html
-│   │       │   │   └── index.html
-│   │       │   ├── index.html
-│   │       │   ├── middleware
-│   │       │   │   ├── 404.js.html
-│   │       │   │   ├── 500.js.html
-│   │       │   │   ├── acl.js.html
-│   │       │   │   ├── basicAuth.js.html
-│   │       │   │   ├── bearerAuth.js.html
-│   │       │   │   └── index.html
-│   │       │   ├── pool.js.html
-│   │       │   ├── products
-│   │       │   │   ├── buyerProduct-collection.js.html
-│   │       │   │   ├── cartProduct-collection.js.html
-│   │       │   │   ├── favoriteProduct-collection.js.html
-│   │       │   │   ├── index.html
-│   │       │   │   └── products-collection.js.html
-│   │       │   └── users
-│   │       │       ├── admin-collection.js.html
-│   │       │       ├── index.html
-│   │       │       └── users-collection.js.html
-│   │       ├── routes
-│   │       │   ├── admin.js.html
-│   │       │   ├── buyerpeoducts.js.html
-│   │       │   ├── cartproducts.js.html
-│   │       │   ├── favoriteproducts.js.html
-│   │       │   ├── index.html
-│   │       │   ├── sellerproducts.js.html
-│   │       │   └── signing.js.html
-│   │       └── server.js.html
-│   └── lcov.info
 ├── data
 │   ├── drop_n_create.js
 │   ├── fake-data.js

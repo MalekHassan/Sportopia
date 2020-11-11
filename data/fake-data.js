@@ -367,6 +367,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -387,6 +388,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -407,6 +409,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -428,8 +431,9 @@ function insertProduct() {
       category_id: 5,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -449,8 +453,9 @@ function insertProduct() {
       category_id: 5,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -469,8 +474,9 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -489,8 +495,9 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -508,8 +515,9 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -527,8 +535,9 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -547,8 +556,9 @@ function insertProduct() {
       category_id: 6,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -565,8 +575,9 @@ function insertProduct() {
       category_id: 7,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -585,8 +596,9 @@ function insertProduct() {
       category_id: 7,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -604,8 +616,9 @@ function insertProduct() {
       category_id: 7,
       quantity: 10,
       is_deleted: false,
-      is_bid: false,
+      is_bid: true,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -625,6 +638,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -646,6 +660,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -667,6 +682,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -686,6 +702,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -705,6 +722,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -724,6 +742,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -742,6 +761,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -761,6 +781,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -778,6 +799,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -797,6 +819,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -815,6 +838,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -833,6 +857,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -851,6 +876,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -870,6 +896,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -888,6 +915,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 1,
@@ -907,6 +935,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -926,6 +955,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -945,6 +975,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -963,6 +994,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 2,
@@ -982,6 +1014,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -1001,6 +1034,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -1020,6 +1054,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -1039,6 +1074,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 3,
@@ -1058,6 +1094,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -1077,6 +1114,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -1096,6 +1134,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -1116,6 +1155,7 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
     {
       seller_id: 4,
@@ -1135,11 +1175,12 @@ function insertProduct() {
       is_deleted: false,
       is_bid: false,
       is_finished: false,
+      end_time: 24,
     },
   ];
   products.forEach(async (item) => {
     let InsertQuery =
-      'INSERT INTO products (seller_id,name,description,main_img,images,price,category_id,quantity,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)';
+      'INSERT INTO products (seller_id,name,description,main_img,images,price,category_id,quantity,is_deleted,is_bid,is_finished,end_time) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)';
     let safeValues = [
       item.seller_id,
       item.name,
@@ -1150,6 +1191,9 @@ function insertProduct() {
       item.category_id,
       item.quantity,
       item.is_deleted,
+      item.is_bid,
+      item.is_finished,
+      item.end_time,
     ];
     await client.query(InsertQuery, safeValues);
   });
