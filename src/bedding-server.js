@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 'use strict';
 const server = require('./server');
 require('dotenv').config();
@@ -19,11 +20,12 @@ bedding.on('connection', (socket) => {
   socket.on('join', async (payload) => {
     console.log('inside server.js', payload);
     let userInfo = await getUser(payload.user);
+    console.log(userInfo);
     if (userInfo) {
       socket.join(payload.productId);
-      console.log(userInfo.user_name, ' joined ', BIDDING_ROOM);
+      notifyTheSeller(payload.productId, userInfo.id);
       socket.emit('username', userInfo.user_name);
-      console.log(bedding.adapter.rooms);
+      console.log(bedding.adapter.rooms[payload.productId]);
     } else {
       console.log('you are not registered');
     }
@@ -48,11 +50,28 @@ bedding.on('connection', (socket) => {
   //   console.log(socket.id, payload);
   //   socket.join(payload);
   // });
-  async function getUser(userId) {
-    userId = parseInt(userId);
-    let userRole = await client
-      .query('select * from users where u_id=$1', [userId])
-      .then((result) => result.rows[0]);
-    return await userModel.sellerOBuyer(userRole);
-  }
 });
+
+async function getUser(userId) {
+  userId = parseInt(userId);
+  let userRole = await client
+    .query('select * from users where u_id=$1', [userId])
+    .then((result) => result.rows[0]);
+  return await userModel.sellerOBuyer(userRole);
+}
+
+async function notifyTheSeller(productId, userId) {
+  productId = parseInt(productId);
+  userId = parseInt(userId);
+  let sellerId = parseInt(await getSellerId(productId));
+  await client.query(
+    'INSERT INTO seller_notify (s_id,p_id,u_id) VALUES ($1,$2,$3)',
+    [sellerId, productId, userId]
+  );
+}
+
+async function getSellerId(productId) {
+  return await client
+    .query('select seller_id from products where id=$1', [productId])
+    .then((result) => result.rows[0].seller_id);
+}

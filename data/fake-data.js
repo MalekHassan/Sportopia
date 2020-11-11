@@ -1139,7 +1139,7 @@ function insertProduct() {
   ];
   products.forEach(async (item) => {
     let InsertQuery =
-      'INSERT INTO products (seller_id,name,description,main_img,images,price,category_id,quantity,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)';
+      'INSERT INTO products (seller_id,name,description,main_img,images,price,category_id,quantity,is_deleted,is_bid,is_finished) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)';
     let safeValues = [
       item.seller_id,
       item.name,
@@ -1150,6 +1150,8 @@ function insertProduct() {
       item.category_id,
       item.quantity,
       item.is_deleted,
+      item.is_bid,
+      item.is_finished,
     ];
     await client.query(InsertQuery, safeValues);
   });
