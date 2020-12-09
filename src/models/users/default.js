@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const client = require('../pool');
 
 class Default {
