@@ -63,7 +63,7 @@ app.use('/favorite', favoriteProducts);
 app.use('/', adminRoute);
 app.use('/bidding', beddingRoute);
 app.use('/paypal', PayPalPayment);
-app.use('/', defaultUser);
+app.use('/all', defaultUser);
 
 //Error middleware
 app.use('*', notExist);
