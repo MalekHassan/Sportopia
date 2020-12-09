@@ -85,6 +85,7 @@ class UsersCollection {
         username: record.user_name,
         role: record.user_role,
         is_activated: record.is_activated,
+        user_id : record.u_id
       },
       SECRET
     );
