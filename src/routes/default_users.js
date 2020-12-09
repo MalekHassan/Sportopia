@@ -13,10 +13,11 @@ router.get('/categories', getAllCategories);
 async function getAllProducts(req, res) {
   let pageNumber = req.params.page;
   let products;
-
   if (pageNumber) {
+    pageNumber = parseInt(pageNumber);
     products = await defaultCollection.getProducts(pageNumber);
   } else {
+    pageNumber = 0;
     products = await defaultCollection.getProducts();
   }
   res.status(200);
