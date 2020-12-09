@@ -22,6 +22,7 @@ const cartProducts = require('./routes/cartproducts');
 const favoriteProducts = require('./routes/favoriteproducts');
 const adminRoute = require('./routes/admin');
 const beddingRoute = require('./routes/bedding');
+const defaultUser = require('./routes/default_users');
 const notExist = require('./models/middleware/404');
 const serverError = require('./models/middleware/500');
 
@@ -62,6 +63,7 @@ app.use('/favorite', favoriteProducts);
 app.use('/', adminRoute);
 app.use('/bidding', beddingRoute);
 app.use('/paypal', PayPalPayment);
+app.use('/', defaultUser);
 
 //Error middleware
 app.use('*', notExist);
