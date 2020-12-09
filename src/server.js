@@ -50,7 +50,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const beddingNameSpace = io.of('/bedding');
 beddingNameSpace.on('connection', (socket) => {
-  console.log('welcome', socket.id);
+  // console.log('welcome', socket.id);
   require('./bedding-server');
 });
 
