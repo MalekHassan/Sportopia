@@ -12,29 +12,35 @@ const client = require('../models/pool');
 // This route only for products
 let clientConnection;
 router.get('/', async (req, res) => {
-  const userId = parseInt(req.cookies.user);
+  const userId = req.headers.authorization;
   if (userId) {
     let userDb = await getUser(userId);
     if (userDb) {
       let allProducts = await getProducts();
-      res.render('bidding', { products: allProducts });
+      res.json({
+        allProducts,
+      });
+      // res.render('bidding', { products: allProducts });
     } else {
-      res.render('sorry');
+      res.json({
+        message: 'You are not registered',
+      });
     }
   } else {
-    res.render('sorry');
+    res.json({
+      message: 'You are not registered',
+    });
   }
 });
 
 router.get('/:id', async (req, res) => {
   let product = await getProduct(req.params.id);
-   res.json({
-     product
+  res.json({
+    product,
   });
-//   res.render('bidding-room', { product: product });
-  clientConnection = ioClient.connect('http://localhost:8000/bedding');
+  clientConnection = ioClient.connect('http://localhost:3000/bedding');
   clientConnection.emit('joinBidding', {
-    user: req.cookies.user,
+    user: req.headers.authorization,
     productId: req.params.id,
   });
 });
