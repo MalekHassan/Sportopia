@@ -72,5 +72,13 @@ class Products {
       .query(selectQuery, safeValues)
       .then((result) => result.rows);
   }
+
+  async getOneProduct(productId) {
+    const selectQuery = 'select * from products where id = $1';
+    let safeValues = [productId];
+    return await client
+      .query(selectQuery, safeValues)
+      .then((result) => result.rows[0]);
+  }
 }
 module.exports = new Products();
