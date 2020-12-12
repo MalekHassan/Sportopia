@@ -130,6 +130,11 @@ class AdminCollection {
       return 'This Category already existed';
     }
   }
+
+  async numberOfUsers() {
+    let countQuery = 'SELECT COUNT(*) FROM users';
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
 }
 
 module.exports = new AdminCollection();

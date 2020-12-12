@@ -54,6 +54,10 @@ router.post(
 );
 router.post('/category', [...allMiddleware], addCategory);
 
+// get number Of users
+
+router.get('/numberUsers', [...allMiddleware], getNumberUsers);
+
 // Functions
 async function getBuyers(req, res, next) {
   let pageNumber = req.params.page;
@@ -284,6 +288,13 @@ async function addCategory(req, res, next) {
       message: newCategory,
     });
   }
+}
+
+async function getNumberUsers(req, res) {
+  let number = await adminCollection.numberOfUsers();
+  res.json({
+    number,
+  });
 }
 
 module.exports = router;
