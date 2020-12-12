@@ -57,5 +57,11 @@ class Products {
     let productDeleting = await client.query(deleteQuery, safeValues);
     return productDeleting.rows[0];
   }
+  async getProducts(sellerId) {
+    let getQuery = `Select * FROM products where seller_id=$1 and is_deleted = false RETURNING *;`;
+    let safeValues = [sellerId];
+    let productDeleting = await client.query(getQuery, safeValues);
+    return productDeleting.rows;
+  }
 }
 module.exports = new Products();
