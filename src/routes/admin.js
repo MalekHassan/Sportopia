@@ -57,6 +57,7 @@ router.post('/category', [...allMiddleware], addCategory);
 // get number Of users
 
 router.get('/numberUsers', [...allMiddleware], getNumberUsers);
+router.get('/numberproducts', [...allMiddleware], getNumberProducts);
 
 // Functions
 async function getBuyers(req, res, next) {
@@ -292,6 +293,12 @@ async function addCategory(req, res, next) {
 
 async function getNumberUsers(req, res) {
   let number = await adminCollection.numberOfUsers();
+  res.json({
+    number,
+  });
+
+async function getNumberProducts(req, res) {
+  let number = await adminCollection.numberOfProducts();
   res.json({
     number,
   });

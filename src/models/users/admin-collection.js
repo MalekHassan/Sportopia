@@ -135,6 +135,11 @@ class AdminCollection {
     let countQuery = 'SELECT COUNT(*) FROM users';
     return client.query(countQuery).then((result) => result.rows[0].count);
   }
+
+  async numberOfProducts() {
+    let countQuery = 'SELECT COUNT(*) FROM products';
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
 }
 
 module.exports = new AdminCollection();
