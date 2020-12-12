@@ -296,6 +296,7 @@ async function getNumberUsers(req, res) {
   res.json({
     number,
   });
+}
 
 async function getNumberProducts(req, res) {
   let number = await adminCollection.numberOfProducts();
