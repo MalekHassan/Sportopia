@@ -10,8 +10,8 @@
     <%data.forEach(item=>{%>
     <h1><%=item.name%></h1>
     <%if(!item.is_deleted){%>
-    <img src="<%=item.main_img%>" alt="" />
-    <h2><%=item.description%></h2>
+    <img src="<%=item.main_img%>" alt="" style="height: 300px; height: 300px" />
+    <h3><%=item.description%></h3>
     <%item.images.forEach(pro=>{%>
     <img style="height: 150px; width: 150px" src="<%=pro%>" alt="" />
     <%})%>
