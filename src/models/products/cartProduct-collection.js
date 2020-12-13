@@ -5,7 +5,7 @@ const client = require('../pool');
 
 class Cart {
   async getCart(userId) {
-    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name,is_deleted,products.id from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_cart on products.id = buyer_cart.p_id where buyer_cart.u_id = $1`;
+    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name,buyer_cart.is_deleted,products.id,buyer_cart.is_bought from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_cart on products.id = buyer_cart.p_id where buyer_cart.u_id = $1`;
     const safeValues = [userId];
     return await client
       .query(selectQuery, safeValues)
