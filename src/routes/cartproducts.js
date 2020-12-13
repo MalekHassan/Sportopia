@@ -18,6 +18,7 @@ router.delete('/delete/:id', [...arrayMiddleware], cartDeleteProd);
 // add products to the cart (table :buyer_cart)
 // No need for anything inside the request body
 async function getCartProd(req, res) {
+  console.log(req.user);
   let products = await cartModel.getCart(req.user.id);
   res.status(201);
   res.json({

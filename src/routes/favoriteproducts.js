@@ -8,7 +8,7 @@ let arrayMiddleware = [bearer, acl('buyer')];
 const router = express.Router();
 
 // Routes
-router.get('/get/', [...arrayMiddleware], favoriteGetProd);
+router.get('/get', [...arrayMiddleware], favoriteGetProd);
 router.post('/add/:id', [...arrayMiddleware], favoriteAddProd);
 router.delete('/delete/:id', [...arrayMiddleware], favoriteDeleteProd);
 

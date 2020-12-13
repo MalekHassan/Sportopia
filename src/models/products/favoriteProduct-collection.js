@@ -5,7 +5,7 @@ const client = require('../pool');
 
 class Favorite {
   async get(userId) {
-    let getQuery = `select name,description,main_img,price,category.category_name,seller.company_name,is_deleted,id from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_favorite on products.id = buyer_favorite.p_id where buyer_favorite.u_id = $1`;
+    let getQuery = `select name,description,main_img,price,category.category_name,seller.company_name,buyer_favorite.is_deleted,buyer_favorite.p_id from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_favorite on products.id = buyer_favorite.p_id where buyer_favorite.u_id = $1`;
     let safeValues = [userId];
     let favoriteProducts = await client
       .query(getQuery, safeValues)
