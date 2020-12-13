@@ -7,7 +7,7 @@ class AdminCollection {
 
   async getBuyers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated,u_id from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated,users.u_id from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -15,7 +15,7 @@ class AdminCollection {
   }
   async getActiveBuyers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated,u_id from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' and users.is_activated = true LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated,users.u_id from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' and users.is_activated = true LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -23,7 +23,7 @@ class AdminCollection {
   }
   async getDeactivateBuyers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated,u_id from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' and users.is_activated = false LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated,users.u_id from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' and users.is_activated = false LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
