@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
   res.json({
     product,
   });
-  clientConnection = ioClient.connect('http://localhost:3000/bedding');
+  clientConnection = ioClient.connect('http://localhost:3000/bidding');
   clientConnection.emit('joinBidding', {
     user: req.headers.authorization,
     productId: req.params.id,
