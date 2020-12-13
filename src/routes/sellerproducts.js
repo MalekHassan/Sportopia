@@ -13,6 +13,7 @@ let arrayMiddleware = [bearer, isActivated, acl('seller')];
 const router = express.Router();
 
 // Routes
+router.get('/sellerproduct/:id', [...arrayMiddleware], sellerGetProducts);
 router.post('/add/:id', [...arrayMiddleware], sellerAddProd);
 router.put(
   '/update/:id',
@@ -63,6 +64,15 @@ async function sellerDelete(req, res) {
   res.json({
     message: 'This product has been deleted',
     product: productInfo,
+  });
+}
+
+async function sellerGetProducts(req, res) {
+  let products = await productModel.getProduct(req.params.id);
+  res.status(200);
+  res.json({
+    message: 'This product has been deleted',
+    products: products,
   });
 }
 module.exports = router;
