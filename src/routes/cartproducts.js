@@ -9,6 +9,7 @@ let arrayMiddleware = [bearer, acl('buyer')];
 const router = express.Router();
 
 // Routes
+router.get('/getcart', [...arrayMiddleware], getCartProd);
 router.post('/add/:id', [...arrayMiddleware], cartAddProd);
 router.post('/buyNow/:id', [...arrayMiddleware], buyNowFun);
 router.put('/buyFromCart/:id', [...arrayMiddleware], buyFromCartfunc);
@@ -16,6 +17,14 @@ router.delete('/delete/:id', [...arrayMiddleware], cartDeleteProd);
 
 // add products to the cart (table :buyer_cart)
 // No need for anything inside the request body
+async function getCartProd(req, res) {
+  let products = await cartModel.getCart(req.user.id);
+  res.status(201);
+  res.json({
+    message: 'Here are your cart products',
+    cart: products,
+  });
+}
 async function cartAddProd(req, res) {
   let productInfo = await cartModel.insertToCart(req.params.id, req.user.id);
   res.status(201);
