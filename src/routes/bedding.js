@@ -12,7 +12,7 @@ const client = require('../models/pool');
 // This route only for products
 let clientConnection;
 router.get('/', async (req, res) => {
-  const userId = req.headers.authorization;
+  const userId = parseInt(req.headers.authorization.split(' ')[1]);
   if (userId) {
     let userDb = await getUser(userId);
     if (userDb) {
