@@ -5,7 +5,6 @@ const faker = require('faker');
 const bcrypt = require('bcrypt');
 
 // Functions
-
 insertCategory();
 insertUsers();
 insertseller();

@@ -4,7 +4,7 @@ const pg = require('pg');
 require('colors');
 
 const test = new pg.Client({
-  connectionString: process.env.DATABASE_URL2,
+  connectionString: process.env.DATABASE_URL,
 });
 
 module.exports = test;

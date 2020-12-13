@@ -130,6 +130,78 @@ class AdminCollection {
       return 'This Category already existed';
     }
   }
+
+  async numberOfUsers() {
+    let countQuery = 'SELECT COUNT(*) FROM users';
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
+
+  async numberOfSellers() {
+    let countQuery = 'SELECT COUNT(*) FROM seller';
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
+
+  async numberOfBuyers() {
+    let countQuery = 'SELECT COUNT(*) FROM buyer';
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
+
+  async numberOfABuyers() {
+    let countQuery = `SELECT COUNT(*) FROM users where user_role = $1 and is_activated = true`;
+    let safeValue = ['buyer'];
+    return client
+      .query(countQuery, safeValue)
+      .then((result) => result.rows[0].count);
+  }
+
+  async numberOfDBuyers() {
+    let countQuery = `SELECT COUNT(*) FROM users where user_role = $1 and is_activated = false`;
+    let safeValue = ['buyer'];
+    return client
+      .query(countQuery, safeValue)
+      .then((result) => result.rows[0].count);
+  }
+
+  async numberOfDSellers() {
+    let countQuery = `SELECT COUNT(*) FROM users where user_role = $1 and is_activated = false`;
+    let safeValue = ['seller'];
+    return client
+      .query(countQuery, safeValue)
+      .then((result) => result.rows[0].count);
+  }
+
+  async numberOfASellers() {
+    let countQuery = `SELECT COUNT(*) FROM users where user_role = $1 and is_activated = true`;
+    let safeValue = ['seller'];
+    return client
+      .query(countQuery, safeValue)
+      .then((result) => result.rows[0].count);
+  }
+
+  async numberOfProducts() {
+    let countQuery = 'SELECT COUNT(*) FROM products';
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
+
+  async numberOfDProducts() {
+    let countQuery = `SELECT COUNT(*) FROM products where is_deleted = true`;
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
+
+  async numberOfAProducts() {
+    let countQuery = `SELECT COUNT(*) FROM products where is_deleted = false`;
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
+
+  async numberOfBProducts() {
+    let countQuery = `SELECT COUNT(*) FROM buyer_cart where is_bought = true`;
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
+
+  async numberOfCProducts() {
+    let countQuery = `SELECT COUNT(*) FROM buyer_cart where is_bought = false`;
+    return client.query(countQuery).then((result) => result.rows[0].count);
+  }
 }
 
 module.exports = new AdminCollection();

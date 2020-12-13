@@ -4,6 +4,13 @@ require('dotenv').config();
 const client = require('../pool');
 
 class Cart {
+  async getCart(userId) {
+    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name,is_deleted,id from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_cart on products.id = buyer_cart.p_id where buyer_cart.u_id = $1`;
+    const safeValues = [userId];
+    return await client
+      .query(selectQuery, safeValues)
+      .then((result) => result.rows);
+  }
   async insertToCart(productId, userId) {
     const insertQuery =
       'INSERT INTO buyer_cart (p_id,u_id ,quantity,is_bought) VALUES ($1,$2,$3,$4) RETURNING *';
@@ -44,5 +51,6 @@ class Cart {
       .then((result) => result.rows[0]);
     return productDeleting;
   }
+  
 }
 module.exports = new Cart();

@@ -12,6 +12,7 @@ const router = express.Router();
 
 // Routes
 // router.get('/joinbidd/:id', joinBiddingRoom);
+router.get('/product/:id', [...arrayMiddleware], getProductDetails);
 router.post('/add/comment/:id', [...arrayMiddleware], buyerAddComment);
 router.put('/update/comment/:id', [...arrayMiddleware], buyerUpdateComment);
 router.patch('/patch/comment/:id', [...arrayMiddleware], buyerUpdateComment);
@@ -19,6 +20,17 @@ router.delete('/delete/comment/:id', [...arrayMiddleware], buyerDeleteComment);
 router.get('/category/:id', [...arrayMiddleware], categoryHandler);
 
 // functions
+
+//
+async function getProductDetails(req, res) {
+  let productId = req.params.id;
+  let productInfo = await buyerModel.getOneProduct(productId);
+  res.status(200);
+  res.json({
+    productInfo,
+  });
+}
+
 // Buyer_cart is passed in the request
 // the body should contain the comment
 async function buyerAddComment(req, res) {

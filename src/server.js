@@ -22,6 +22,7 @@ const cartProducts = require('./routes/cartproducts');
 const favoriteProducts = require('./routes/favoriteproducts');
 const adminRoute = require('./routes/admin');
 const beddingRoute = require('./routes/bedding');
+const defaultUser = require('./routes/default_users');
 const notExist = require('./models/middleware/404');
 const serverError = require('./models/middleware/500');
 
@@ -49,7 +50,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const beddingNameSpace = io.of('/bedding');
 beddingNameSpace.on('connection', (socket) => {
-  console.log('welcome', socket.id);
+  // console.log('welcome', socket.id);
   require('./bedding-server');
 });
 
@@ -62,6 +63,7 @@ app.use('/favorite', favoriteProducts);
 app.use('/', adminRoute);
 app.use('/bidding', beddingRoute);
 app.use('/paypal', PayPalPayment);
+app.use('/all', defaultUser);
 
 //Error middleware
 app.use('*', notExist);

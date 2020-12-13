@@ -54,6 +54,27 @@ router.post(
 );
 router.post('/category', [...allMiddleware], addCategory);
 
+// get number Of users
+
+router.get('/numberUsers', [...allMiddleware], getNumberUsers);
+router.get('/numberproducts', [...allMiddleware], getNumberProducts);
+
+// get Counts
+
+router.get('/sellerscount', [...allMiddleware], getNumberSellers);
+router.get('/dsellerscount', [...allMiddleware], getNumberDSellers);
+router.get('/asellerscount', [...allMiddleware], getNumberASellers);
+router.get('/buyerscount', [...allMiddleware], getNumberBuyers);
+router.get('/abuyerscount', [...allMiddleware], getNumberABuyers);
+router.get('/dbuyerscount', [...allMiddleware], getNumberDBuyers);
+
+// get Products
+router.get('/productscount', [...allMiddleware], getNumberProducts);
+router.get('/dproductscount', [...allMiddleware], getNumberDProducts);
+router.get('/aproductscount', [...allMiddleware], getNumberAProducts);
+router.get('/bproductscount', [...allMiddleware], getNumberBProducts);
+router.get('/cproductscount', [...allMiddleware], getNumberCProducts);
+
 // Functions
 async function getBuyers(req, res, next) {
   let pageNumber = req.params.page;
@@ -284,6 +305,90 @@ async function addCategory(req, res, next) {
       message: newCategory,
     });
   }
+}
+
+async function getNumberUsers(req, res) {
+  let number = await adminCollection.numberOfUsers();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberProducts(req, res) {
+  let number = await adminCollection.numberOfProducts();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberSellers(req, res) {
+  let number = await adminCollection.numberOfSellers();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberBuyers(req, res) {
+  let number = await adminCollection.numberOfBuyers();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberDSellers(req, res) {
+  let number = await adminCollection.numberOfDSellers();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberASellers(req, res) {
+  let number = await adminCollection.numberOfASellers();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberABuyers(req, res) {
+  let number = await adminCollection.numberOfABuyers();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberDBuyers(req, res) {
+  let number = await adminCollection.numberOfDBuyers();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberDProducts(req, res) {
+  let number = await adminCollection.numberOfDProducts();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberAProducts(req, res) {
+  let number = await adminCollection.numberOfAProducts();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberBProducts(req, res) {
+  let number = await adminCollection.numberOfBProducts();
+  res.json({
+    number,
+  });
+}
+
+async function getNumberCProducts(req, res) {
+  let number = await adminCollection.numberOfCProducts();
+  res.json({
+    number,
+  });
 }
 
 module.exports = router;
