@@ -7,7 +7,7 @@ class AdminCollection {
 
   async getBuyers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -31,7 +31,7 @@ class AdminCollection {
   }
   async getSellers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,company_name,adress,telephone from seller inner join users on seller.u_id = users.u_id where users.user_role ='seller' LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,company_name,adress,telephone,is_activated from seller inner join users on seller.u_id = users.u_id where users.user_role ='seller' LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -87,7 +87,7 @@ class AdminCollection {
   }
   async getAllProducts(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id LIMIT 10 OFFSET $1`;
+    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name,is_deleted from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
