@@ -15,7 +15,7 @@ class AdminCollection {
   }
   async getActiveBuyers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' and users.is_activated = true LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' and users.is_activated = true LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -23,7 +23,7 @@ class AdminCollection {
   }
   async getDeactivateBuyers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' and users.is_activated = false LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,first_name,last_name,adress,telephone,gender,card_number,is_activated from buyer inner join users on buyer.u_id = users.u_id where users.user_role ='buyer' and users.is_activated = false LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -39,7 +39,7 @@ class AdminCollection {
   }
   async getActiveSellers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,company_name,adress,telephone from seller inner join users on seller.u_id = users.u_id where users.user_role ='seller' and users.is_activated = true LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,company_name,adress,telephone,is_activated from seller inner join users on seller.u_id = users.u_id where users.user_role ='seller' and users.is_activated = true LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -47,7 +47,7 @@ class AdminCollection {
   }
   async getDeactivateSellers(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select user_name,user_role,company_name,adress,telephone from seller inner join users on seller.u_id = users.u_id where users.user_role ='seller' and users.is_activated = false LIMIT 10 OFFSET $1`;
+    const selectQuery = `select user_name,user_role,company_name,adress,telephone,is_activated from seller inner join users on seller.u_id = users.u_id where users.user_role ='seller' and users.is_activated = false LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -55,7 +55,7 @@ class AdminCollection {
   }
   async getDeletedProducts(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id where is_deleted = true LIMIT 10 OFFSET $1`;
+    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name,is_deleted from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id where is_deleted = true LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -63,7 +63,7 @@ class AdminCollection {
   }
   async getInCartProducts(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_cart on products.id = buyer_cart.p_id where is_bought = false LIMIT 10 OFFSET $1`;
+    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name,is_bought from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_cart on products.id = buyer_cart.p_id where is_bought = false LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -71,7 +71,7 @@ class AdminCollection {
   }
   async getBoughtProducts(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_cart on products.id = buyer_cart.p_id where is_bought = true LIMIT 10 OFFSET $1`;
+    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name,is_deleted from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id inner join buyer_cart on products.id = buyer_cart.p_id where is_bought = true LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
@@ -79,7 +79,7 @@ class AdminCollection {
   }
   async getActiveProducts(page = 0) {
     let offset = page * 10;
-    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id where is_deleted = false LIMIT 10 OFFSET $1`;
+    const selectQuery = `select name,description,main_img,price,category.category_name,seller.company_name,is_deleted from products inner join seller on products.seller_id = seller.id inner join category on products.category_id = category.id where is_deleted = false LIMIT 10 OFFSET $1`;
     const safeValues = [offset];
     return await client
       .query(selectQuery, safeValues)
