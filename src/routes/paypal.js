@@ -58,8 +58,8 @@ async function payment(req, res) {
       payment_method: 'paypal',
     },
     redirect_urls: {
-      return_url: 'http://localhost:8000/paypal/success',
-      cancel_url: 'http://localhost:8000/paypal/cancel',
+      return_url: 'http://localhost:3000/paypal/success',
+      cancel_url: 'http://localhost:3000/paypal/cancel',
     },
     transactions: [
       {
