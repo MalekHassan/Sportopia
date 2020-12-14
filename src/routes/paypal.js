@@ -34,6 +34,7 @@ async function payment(req, res) {
   let sql = `select * from products WHERE id=$1`;
   let safeValue = [req.params.id];
   let item = await client.query(sql, safeValue);
+  console.log(item.rows);
   buying = item.rows[0];
   let leftItems = buying.quantity - quantitys;
   if (leftItems < 0) {
@@ -57,8 +58,8 @@ async function payment(req, res) {
       payment_method: 'paypal',
     },
     redirect_urls: {
-      return_url: 'http://localhost:8000/paypal/success',
-      cancel_url: 'http://localhost:8000/paypal/cancel',
+      return_url: 'http://localhost:3000/paypal/success',
+      cancel_url: 'http://localhost:3000/paypal/cancel',
     },
     transactions: [
       {
@@ -88,7 +89,7 @@ async function payment(req, res) {
     } else {
       for (let i = 0; i < payment.links.length; i++) {
         if (payment.links[i].rel === 'approval_url') {
-          res.redirect(payment.links[i].href);
+          res.send(payment.links[i].href);
         }
       }
     }
