@@ -6,13 +6,17 @@ const router = express.Router();
 const ioClient = require('socket.io-client');
 const userModel = require('../models/users/users-collection');
 const client = require('../models/pool');
+const cors = require('cors');
 
 // routes
 
 // This route only for products
 let clientConnection;
-router.get('/', async (req, res) => {
+router.get('/', cors(), async (req, res) => {
+  console.log(req.body);
+  console.log(req);
   const user = req.body.user;
+
   const userId = user.user_id;
   if (userId) {
     let userDb = await getUser(userId);
@@ -34,12 +38,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', cors(), async (req, res) => {
   let product = await getProduct(req.params.id);
   res.json({
     product,
   });
-  clientConnection = ioClient.connect('http://localhost:3000/bidding');
+  clientConnection = ioClient.connect(
+    'https://sportopiav1.herokuapp.com/bidding'
+  );
   clientConnection.emit('joinBidding', {
     user: req.headers.authorization,
     productId: req.params.id,
@@ -56,7 +62,7 @@ async function getUser(userId) {
 async function getProducts() {
   return await client
     .query(
-      'select * from products  where is_bid = true and is_finished = false'
+      'select * from products  where is_bid = true and is_finished = false and is_deleted = false'
     )
     .then((result) => result.rows);
 }
