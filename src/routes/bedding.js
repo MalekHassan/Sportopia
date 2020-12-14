@@ -12,12 +12,11 @@ const cors = require('cors');
 
 // This route only for products
 let clientConnection;
-router.get('/', cors(), async (req, res) => {
-  console.log(req.body);
-  console.log(req);
-  const user = req.body.user;
+router.get('/:id', async (req, res) => {
+  console.log(req.params);
+  const user = req.params.id;
 
-  const userId = user.user_id;
+  const userId = user;
   if (userId) {
     let userDb = await getUser(userId);
     if (userDb) {
