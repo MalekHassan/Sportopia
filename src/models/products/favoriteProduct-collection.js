@@ -13,7 +13,7 @@ class Favorite {
     return favoriteProducts;
   }
   async addToFavorite(productID, userId) {
-    const selectQuery = 'SELECT * from buyer_favorite where id=$1 and u_id = $2';
+    const selectQuery = 'SELECT * from buyer_favorite where p_id=$1 and u_id = $2';
     let safeValues = [productID, userId];
     let productDb = await client
       .query(selectQuery, safeValues)
@@ -32,7 +32,7 @@ class Favorite {
     }
 
   async delete(deleteId, userId) {
-    let deleteQuery = `update buyer_favorite set is_deleted=true where id=$1 and u_id = $2 RETURNING *;`;
+    let deleteQuery = `update buyer_favorite set is_deleted=true where p_id=$1 and u_id = $2 RETURNING *;`;
     let safeValues = [deleteId, userId];
     let productDeleting = await client
       .query(deleteQuery, safeValues)
