@@ -32,7 +32,8 @@ bedding.on('connection', (socket) => {
   });
   // Handle chat event
   socket.on('chat', function (data) {
-    // console.log(data);
+    console.log(data);
+    console.log(data.productId);
     bedding.to(data.productId).emit('chat', data);
   });
 

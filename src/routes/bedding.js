@@ -37,18 +37,20 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.get('/:id', cors(), async (req, res) => {
+router.get('/product/:id', async (req, res) => {
+  console.log(req.params.id);
   let product = await getProduct(req.params.id);
+  console.log(product);
   res.json({
     product,
   });
-  clientConnection = ioClient.connect(
-    'https://sportopiav1.herokuapp.com/bidding'
-  );
-  clientConnection.emit('joinBidding', {
-    user: req.headers.authorization,
-    productId: req.params.id,
-  });
+  // clientConnection = ioClient.connect(
+  //   'https://sportopiav1.herokuapp.com/bidding'
+  // );
+  // clientConnection.emit('joinBidding', {
+  //   user: req.headers.authorization,
+  //   productId: req.params.id,
+  // });
 });
 
 async function getUser(userId) {
