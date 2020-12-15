@@ -35,8 +35,8 @@ class Favorite {
     }
   }
 
-  async delete(deleteId) {
-    let deleteQuery = `update buyer_favorite set is_deleted= not is_deleted where id=$1 RETURNING *;`;
+  async delete(deleteId, userId) {
+    let deleteQuery = `update buyer_favorite set is_deleted= not is_deleted where id=$1 and u_id = $2 RETURNING *;`;
     let safeValues = [deleteId];
     let productDeleting = await client
       .query(deleteQuery, safeValues)
