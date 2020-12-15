@@ -27,17 +27,13 @@ class Favorite {
         .then((result) => result.rows[0]);
       return productInfo;
     } else {
-      if (productDb.is_deleted) {
-        return await this.delete(productDb.id);
-      } else {
         return 'You have this product in your Favorite';
       }
     }
-  }
 
   async delete(deleteId, userId) {
-    let deleteQuery = `update buyer_favorite set is_deleted= not is_deleted where id=$1 and u_id = $2 RETURNING *;`;
-    let safeValues = [deleteId];
+    let deleteQuery = `update buyer_favorite set is_deleted=true where id=$1 and u_id = $2 RETURNING *;`;
+    let safeValues = [deleteId, userId];
     let productDeleting = await client
       .query(deleteQuery, safeValues)
       .then((result) => result.rows[0]);

@@ -10,7 +10,7 @@ const router = express.Router();
 // Routes
 router.get('/get', [...arrayMiddleware], favoriteGetProd);
 router.post('/add/:id', [...arrayMiddleware], favoriteAddProd);
-router.delete('/delete/:id', [...arrayMiddleware], favoriteDeleteProd);
+router.put('/delete/:id', [...arrayMiddleware], favoriteDeleteProd);
 
 // adding function to favorite products (table : buyer_favorite)
 // only the product id will be passed, the user already in the request
@@ -44,7 +44,7 @@ async function favoriteDeleteProd(req, res) {
   let productInfo = await favModel.delete(req.params.id);
   res.status(200);
   res.json({
-    message: 'A product has been deleted from You Favorite',
+    message: 'A product has been deleted from your Favorite',
     product: productInfo,
   });
 }
