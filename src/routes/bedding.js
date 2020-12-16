@@ -40,13 +40,10 @@ router.get('/:id', async (req, res) => {
 router.get('/product/:id', async (req, res) => {
   console.log(req.params.id);
   let product = await getProduct(req.params.id);
-  console.log(product);
   res.json({
     product,
   });
-  // clientConnection = ioClient.connect(
-  //   'https://sportopiav1.herokuapp.com/bidding'
-  // );
+  // clientConnection = ioClient.connect('https://localhost:8000/bidding');
   // clientConnection.emit('joinBidding', {
   //   user: req.headers.authorization,
   //   productId: req.params.id,

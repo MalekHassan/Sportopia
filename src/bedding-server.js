@@ -22,6 +22,8 @@ bedding.on('connection', (socket) => {
     let userInfo = await getUser(payload.user);
     console.log(userInfo);
     if (userInfo) {
+      console.log('this is the prodcut ', payload.productId);
+      console.log(typeof payload.productId);
       socket.join(payload.productId);
       notifyTheSeller(payload.productId, userInfo.id);
       socket.emit('username', userInfo.user_name);
@@ -33,17 +35,17 @@ bedding.on('connection', (socket) => {
   // Handle chat event
   socket.on('chat', function (data) {
     console.log(data);
-    console.log(data.productId);
+    console.log('Hello World', typeof data.productId);
     bedding.to(data.productId).emit('chat', data);
   });
 
   // Handle typing event
   socket.on('typing', function (data) {
-    bedding.to(data.productId).emit('typing', data.message);
+    socket.broadcast.to(data.productId).emit('typing', data);
   });
   // Bidding Rooms
   // socket.on('joinBidding', (payload) => {
-  //   console.log(payload);
+  //   console.log('Welocme Human', payload);
   //   bedding.emit('joinBidding', payload);
   // });
 
