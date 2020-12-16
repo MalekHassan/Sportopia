@@ -58,9 +58,14 @@ class Products {
     return productDeleting.rows[0];
   }
   async getProducts(sellerId) {
-    let getQuery = `Select * FROM products where seller_id=$1 and is_deleted = false`;
+    let selectQuery = `select * from seller where seller.u_id = $1`;
     let safeValues = [sellerId];
-    let productDeleting = await client.query(getQuery, safeValues);
+    let sellerData = await client
+      .query(selectQuery, safeValues)
+      .then((res) => res.rows[0]);
+    let getQuery = `Select id,name,description,main_img,price,quantity,category_id,is_bid FROM products where seller_id=$1 and is_deleted = false`;
+    let safeValues2 = [sellerData.id];
+    let productDeleting = await client.query(getQuery, safeValues2);
     return productDeleting.rows;
   }
 }
