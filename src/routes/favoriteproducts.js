@@ -10,7 +10,7 @@ const router = express.Router();
 // Routes
 router.get('/get', [...arrayMiddleware], favoriteGetProd);
 router.post('/add/:id', [...arrayMiddleware], favoriteAddProd);
-router.put('/delete/:id', [...arrayMiddleware], favoriteDeleteProd);
+router.patch('/delete/:id', [...arrayMiddleware], favoriteDeleteProd);
 
 // adding function to favorite products (table : buyer_favorite)
 // only the product id will be passed, the user already in the request
@@ -29,6 +29,7 @@ async function favoriteAddProd(req, res) {
   if (typeof productInfo === 'string') {
     res.status(200);
     res.json({
+      body:req.body,
       message: productInfo,
     });
   } else {
