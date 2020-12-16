@@ -18,6 +18,7 @@ async function favoriteGetProd(req, res) {
   let products = await favModel.get(req.user.id);
   res.status(200);
   res.json({
+    id:`your id ${req.user.id}`,
     message: 'Your favorite products',
     product: products,
   });
@@ -41,9 +42,11 @@ async function favoriteAddProd(req, res) {
 
 // To delete products from the cart  (table : buyer_cart)
 async function favoriteDeleteProd(req, res) {
-  let productInfo = await favModel.delete(req.params.id);
+  let productInfo = await favModel.delete(req.params.id,req.user.id);
   res.status(200);
   res.json({
+    paramsid:req.params.id,
+    req: req.body,
     message: 'A product has been deleted from your Favorite',
     product: productInfo,
   });
