@@ -75,7 +75,35 @@ router.get('/aproductscount', [...allMiddleware], getNumberAProducts);
 router.get('/bproductscount', [...allMiddleware], getNumberBProducts);
 router.get('/cproductscount', [...allMiddleware], getNumberCProducts);
 
+// Statistic
+
+router.get('/static/gender', [...allMiddleware], getGender);
+router.get('/static/actived', [...allMiddleware], getUsersA);
+router.get('/static/pro', [...allMiddleware], getPro);
+
 // Functions
+
+async function getGender(req, res, next) {
+  let gender = await adminCollection.getGender();
+  res.json({
+    gender,
+  });
+}
+
+async function getPro(req, res, next) {
+  let products = await adminCollection.getDAProducts();
+  res.json({
+    products,
+  });
+}
+
+async function getUsersA(req, res, next) {
+  let users = await adminCollection.getADUsers();
+  res.json({
+    users,
+  });
+}
+
 async function getBuyers(req, res, next) {
   let pageNumber = req.params.page;
   let users;

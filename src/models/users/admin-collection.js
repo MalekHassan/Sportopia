@@ -202,6 +202,39 @@ class AdminCollection {
     let countQuery = `SELECT COUNT(*) FROM buyer_cart where is_bought = false`;
     return client.query(countQuery).then((result) => result.rows[0].count);
   }
+
+  async getGender() {
+    let selectQuery = `SELECT(
+      SELECT COUNT(*)
+	  FROM   buyer where gender ='male'
+	  ) AS male,
+	  (SELECT COUNT(*)
+	  FROM   buyer where gender ='female'
+    ) AS female`;
+    return client.query(selectQuery).then((result) => result.rows[0]);
+  }
+
+  async getADUsers() {
+    let selectQuery = `SELECT(
+      SELECT COUNT(*)
+	  FROM   users where is_activated = true
+	  ) AS active,
+	  (SELECT COUNT(*)
+	  FROM   users where is_activated = false
+    ) AS deactive`;
+    return client.query(selectQuery).then((result) => result.rows[0]);
+  }
+
+  async getDAProducts() {
+    let selectQuery = `SELECT(
+      SELECT COUNT(*)
+	  FROM   products where is_deleted = true
+	  ) AS deleted,
+	  (SELECT COUNT(*)
+	  FROM   products where is_deleted = false
+    ) AS active`;
+    return client.query(selectQuery).then((result) => result.rows[0]);
+  }
 }
 
 module.exports = new AdminCollection();
