@@ -28,7 +28,8 @@ class Favorite {
       return productInfo;
     } else {
       if (productDb.is_deleted) {
-        return await this.delete(productDb.id);
+        productInfo = await this.reFavorite(productDb.id);
+        return productInfo
       } else {
         return 'You have this product in your Favorite';
       }
@@ -36,7 +37,16 @@ class Favorite {
   }
 
   async delete(deleteId, userId) {
-    let deleteQuery = `update buyer_favorite set is_deleted= not is_deleted where p_id=$1 and u_id = $2 RETURNING *;`;
+    let deleteQuery = `update buyer_favorite set is_deleted=false where p_id=$1 and u_id = $2 RETURNING *;`;
+    let safeValues = [deleteId,userId];
+    let productDeleting = await client
+      .query(deleteQuery, safeValues)
+      .then((result) => result.rows);
+    return productDeleting;
+    
+  }
+  async reFavorite(deleteId, userId) {
+    let deleteQuery = `update buyer_favorite set is_deleted=false where p_id=$1 and u_id = $2 RETURNING *;`;
     let safeValues = [deleteId,userId];
     let productDeleting = await client
       .query(deleteQuery, safeValues)
