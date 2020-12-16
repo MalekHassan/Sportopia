@@ -40,7 +40,7 @@ class Favorite {
     let safeValues = [deleteId,userId];
     let productDeleting = await client
       .query(deleteQuery, safeValues)
-      .then((result) => result.rows[0]);
+      .then((result) => result.rows);
     return productDeleting;
     
   }
