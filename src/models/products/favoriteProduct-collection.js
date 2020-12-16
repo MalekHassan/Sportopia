@@ -42,6 +42,7 @@ class Favorite {
       .query(deleteQuery, safeValues)
       .then((result) => result.rows[0]);
     return productDeleting;
+    
   }
 }
 module.exports = new Favorite();

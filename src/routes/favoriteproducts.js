@@ -12,6 +12,7 @@ router.get('/get', [...arrayMiddleware], favoriteGetProd);
 router.post('/add/:id', [...arrayMiddleware], favoriteAddProd);
 router.patch('/delete/:id', [...arrayMiddleware], favoriteDeleteProd);
 
+
 // adding function to favorite products (table : buyer_favorite)
 // only the product id will be passed, the user already in the request
 async function favoriteGetProd(req, res) {
