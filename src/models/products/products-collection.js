@@ -58,7 +58,7 @@ class Products {
     return productDeleting.rows[0];
   }
   async getProducts(sellerId) {
-    let getQuery = `Select * FROM products where seller_id=$1 and is_deleted = false RETURNING *;`;
+    let getQuery = `Select * FROM products where seller_id=$1 and is_deleted = false`;
     let safeValues = [sellerId];
     let productDeleting = await client.query(getQuery, safeValues);
     return productDeleting.rows;

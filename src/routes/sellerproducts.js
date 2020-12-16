@@ -68,7 +68,7 @@ async function sellerDelete(req, res) {
 }
 
 async function sellerGetProducts(req, res) {
-  let products = await productModel.getProduct(req.params.id);
+  let products = await productModel.getProducts(req.params.id);
   res.status(200);
   res.json({
     message: 'This product has been deleted',
